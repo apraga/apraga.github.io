@@ -21,6 +21,13 @@ lang = 'en'
 
 - FOSDEM 2024, lighthing talk : [slides](/slides/fosdem2024), [official website](https://fosdem.org/2024/schedule/event/fosdem-2024-3058-nix-for-genetics-powering-a-bioinformatics-pipeline/)
 
-# PhD
+# Others
 
-- [Alexis Praga. A large-scale atmospheric chemistry-transport model for massively parallel architectures. Computer Science \[cs\]. Université Toulouse III - Paul Sabatier, 2015. English. ⟨NNT : ⟩. ⟨tel-01178394⟩](https://hal.inria.fr/tel-01178394/)
+PhD
+
+- manuscript: [Alexis Praga. A large-scale atmospheric chemistry-transport model for massively parallel architectures. Computer Science \[cs\]. Université Toulouse III - Paul Sabatier, 2015. English. ⟨NNT : ⟩. ⟨tel-01178394⟩](https://hal.inria.fr/tel-01178394/)
+
+Medical thesis
+
+- manuscript :  [Alexis Praga. Un pipeline bioinformatique de ré-interprétation d’analyses constitutionnelles d’exome. Médecine humaine et pathologie. 2024. ⟨dumas-04552659⟩](https://dumas.ccsd.cnrs.fr/MEM-UNIV-UFC/dumas-04552659v1)
+- [slides](/slides/bisonex)
