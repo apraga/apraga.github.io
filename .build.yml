@@ -9,10 +9,10 @@ sources:
   - https://git.sr.ht/~scut/site
 tasks:
   - build: |
-      cd notes/site
+      cd site
       zola build
   - package: |
-      cd notes/site
-      tar -C public -cvz . > ../../site.tar.gz
+      cd site
+      tar -C public -cvz . > ../site.tar.gz
   - upload: |
       hut pages publish -d $site site.tar.gz
