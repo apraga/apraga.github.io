@@ -6,7 +6,7 @@ oauth: pages.sr.ht/PAGES:RW
 environment:
   site: scut.srht.site
 sources:
-  - https://git.sr.ht/~scut/notes
+  - https://git.sr.ht/~scut/site
 tasks:
   - build: |
       cd notes/site
