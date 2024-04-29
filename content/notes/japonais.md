@@ -927,3 +927,34 @@ après X: -てから. Exemple : après être allé : きってから
 ## Grammaire
 
 - あまり〜ていない: peu de ...
+
+# 2024-03-31
+
+## Vocabulaire
+
+- 海外旅行 (かいがいりょこう): voyage à l'étranger
+- リメイク : remake
+- 同じレストランに二度行くようなこと : c'est comme aller deux fois de suite dans le même restaurant
+（ふたたび）
+
+## Grammaire
+
+ーてきます pour exprimer un changement. Ex: 人工（じんこう）がふえてきました = la population a augmentée
+
+# 2024-04-28
+
+## Vocabulaire
+
+- さしぶり est composé du préfixe　ぶり, qui peut être utilisé avec d'autres durée. Ex　一年ぶり = cela fait un an que l'on ne s'est vu
+- 宣誓する (せんせいする): prêter serment
+- 婚約（こんやく）: fiançiailles
+- プレゼンテーション : présentation
+- 留守（るす）する: être absent de la maison
+- ちょうど良い : être exactement (de la bonne taille, longueur...)
+
+## Grammaire
+
+- -たら = si. On utilise la forme en -た en rajoutant ら. Ex: さむかったら、。。。
+
+
+
