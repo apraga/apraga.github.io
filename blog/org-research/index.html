@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  
+  
+  
+
+  <title>Research in org-mode (GTD, bibliography)</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  
+  <style>
+
+  /* light mode colors */
+  body {
+    --primary-color: #5871a2;
+    --primary-pale-color: #5871a210;
+    --text-color: #3C4043;
+    --text-pale-color: #94969f;
+    --bg-color: #ffffff; 
+    --highlight-mark-color: #5f75b045;
+  
+    --callout-note-color: #5871a2;
+    --callout-important-color: #8062b0;
+    --callout-warning-color: #936e51;
+    --callout-alert-color: #bc5252;
+    --callout-question-color: #477389;
+    --callout-tip-color: #3c8460;
+  }
+
+  /* dark mode colors */
+  body.dark {
+    --primary-color: #5d77ac;
+    --primary-pale-color: #5d77ac20;
+    --text-color: #9197a5;
+    --text-pale-color: #747983;
+    --bg-color: #202124;
+    --highlight-mark-color: #5f75b045;
+
+    --callout-note-color: #5d77ac;
+    --callout-important-color: #8062b0;
+    --callout-warning-color: #936e51;
+    --callout-alert-color: #bc5252;
+    --callout-question-color: #477389;
+    --callout-tip-color: #3c8460;
+  }
+
+  /* typography */
+  body {
+    --main-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --homepage-max-width: 768px;
+    --main-max-width: 768px;
+    --avatar-size: 60px;
+    --icon-size: 20px;
+    --homepage-font-size: 16px;
+    --homepage-line-height: 1.75;
+    --paragraph-font-size: 16px;
+    --paragraph-line-height: 1.75;
+    --aside-font-size: 15px;
+    --img-border-radius: 0px;
+    --dark-mode-img-brightness: 0.75;
+    --dark-mode-chart-brightness: 0.75;
+    --inline-code-border-radius: 2px;
+    --inline-code-bg-color: var(--primary-pale-color);
+    --block-code-border-radius: 0px;
+    --block-code-border-color: var(--primary-color);
+    --detail-border-color: var(--primary-color);
+  }
+
+</style>
+
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+
+  
+</head>
+
+<body class="post">
+  <script>
+    const theme = sessionStorage.getItem('theme');
+    const match = window.matchMedia("(prefers-color-scheme: dark)").matches
+    if ((theme && theme == 'dark') || (!theme && match)) {
+      document.body.classList.add('dark');
+      const hl = document.querySelector('link#hl');
+      if (hl) hl.href = '/hl-dark.css';
+    }
+  </script>
+  
+<header  class="blur" >
+  <div id="header-wrapper">
+    <nav>
+      <a class="instant" href="/">apraga</a>
+      
+        <button id="toggler" class="separator" aria-label="toggle expand">::</button>
+      
+      
+        <span class="wrap left fold">{</span>
+        
+        
+        
+        
+          
+          
+          <a class="instant " href="&#x2F;blog">blog</a>
+          <span class="wrap-separator fold">,</span>
+        
+          
+          
+            
+          
+          <a class="instant fold" href="&#x2F;about">about</a>
+          
+        
+        <span class="wrap right fold">} ;</span>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;" data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<div id="wrapper">
+  <div id="blank"></div>
+  <aside>
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a class="h2" href="#staying-organized-with-org-agenda">Staying organized with Org agenda</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#bibliography-with-org-mode">Bibliography with org-mode</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#writing-papers-org-mode-or-latex">Writing papers : org-mode or LaTeX ?</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+    
+    <button id="back-to-top" aria-label="back to top">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M11.9997 10.8284L7.04996 15.7782L5.63574 14.364L11.9997 8L18.3637 14.364L16.9495 15.7782L11.9997 10.8284Z" fill="currentColor"></path></svg>
+    </button>
+    
+  </aside>
+  <main>
+    <div>
+      
+      
+      
+      
+      <div id="copy-cfg" style="display: none;" data-copy-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;" data-check-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"></div>
+      
+      
+      <article class="prose" data-backlink-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M9.41421 8L18.0208 16.6066L16.6066 18.0208L8 9.41421V17H6V6H17V8H9.41421Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <h1>Research in org-mode (GTD, bibliography)</h1>
+        <div id="post-info">
+          <div id="date">
+            <span id="publish">2023-11-26</span>
+            </div>
+
+          
+
+          
+        </div>
+
+        
+        
+
+        
+
+        
+
+        
+          <p>Here's is my current (simple) workflow for working in org-mode to do research by <a href="https://apraga.github.io/blog/org-research/#staying-organized-with-org-agenda">staying organized with Org agenda</a>, <a href="https://apraga.github.io/blog/org-research/#bibliography-with-org-mode">managing your bibliography</a> and <a href="https://apraga.github.io/blog/org-research/#writing-papers-org-mode-or-latex">write some papers</a>.</p>
+<h2 id="staying-organized-with-org-agenda">Staying organized with Org agenda<a class="zola-anchor" href="#staying-organized-with-org-agenda" aria-label="Anchor link for: staying-organized-with-org-agenda" style="visibility: hidden;">#</a></h2>
+<p>Nicolas Rougier has a <a href="https://www.labri.fr/perso/nrougier/GTD/index.html">very nice configuration</a> for implementing Getting Things Done (GTD) in emacs: 
+But I prefer to only have the dasks for today in the agenda, like this:</p>
+<p><img src="/images/org-agenda.png" alt="My simple org-agenda" /></p>
+<p>For managing projects, I use the <code>CATEGORY</code> property (displayed left in org-agenda) and add tags for more details (displayed right in org-agenda). </p>
+<p>Adding new tasks is done through org-capture into an <code>inbox.org</code> file and refiled as soon as possible into a correct project drawer in <code>projects.org</code>. Here is the full configuration.</p>
+<pre><code>;;; Org config:
+(setq org-directory &quot;~&#x2F;org&#x2F;&quot;) ; Must be set before org loads. Other general config come later.
+
+;; Use daily tasks as default
+(after! org
+  (setq org-agenda-files (list &quot;inbox.org&quot; &quot;projects.org&quot; &quot;projects&#x2F;thesis&quot;) ; My agenda files
+        org-archive-location (concat org-directory &quot;archive&#x2F;%s_archive::&quot;) ; Archive folder
+        org-agenda-start-day &quot;today&quot;
+        org-agenda-span &#x27;day ; One da is enough
+        org-log-done &#x27;time ; Store time when finishing a task
+        org-refile-allow-creating-parent-nodes &#x27;confirm)
+
+  ;; Define capture for inbox tasks. As well as sports
+  ;; To avoid putting newlines everywhere, mapconcat intersperse &quot;\n&quot; between list elements
+  (setq org-capture-templates
+        `((&quot;i&quot; &quot;Inbox&quot; entry  (file &quot;inbox.org&quot;)
+           &quot;* TODO %?\n&#x2F;Entered on&#x2F; %U&quot;)
+          (&quot;t&quot; &quot;Bisonex&quot; entry  (file &quot;projects&#x2F;thesis.org&quot;)
+           &quot;* TODO %?\n&#x2F;Entered on&#x2F; %U&quot;))))
+</code></pre>
+<h2 id="bibliography-with-org-mode">Bibliography with org-mode<a class="zola-anchor" href="#bibliography-with-org-mode" aria-label="Anchor link for: bibliography-with-org-mode" style="visibility: hidden;">#</a></h2>
+<p><a href="https://github.com/emacs-citar/citar">citar</a> is a very nice way to add citations by simplying using <code>SPC m @</code> and typing parts of the author or title. Configuration:</p>
+<pre><code>;; Manage bibliography with citar (vertico is the default completion engine)
+(after! citar
+  (setq! citar-bibliography &#x27;(&quot;~&#x2F;research&#x2F;biblio.bib&quot; &quot;~&#x2F;research&#x2F;bisonex&#x2F;thesis&#x2F;biblio.bib&quot;)
+         citar-library-paths &#x27;(&quot;~&#x2F;papers&quot;)
+         citar-notes-paths &#x27;(&quot;~&#x2F;research&#x2F;references&quot;)))
+</code></pre>
+<p>Within Doom-emacs, pressing <code>ENTER</code> on a citation will give a choice : go to the URL, open the PDF or goes to a dedicated org-mode file containing your note.</p>
+<p>Instead of having multiple org files (one per paper), Gregory J. Stein's post about <a href="https://cachestocaches.com/2020/3/org-mode-annotated-bibliography/">a single org-mode file containing annotated bibliography</a>.
+From this org-file, you can export the bibliography in LaTeX with org-tangle.
+With a custom elisp (or org-ref), you can easily add from a DOI bibtex code. </p>
+<pre><code>;; From https:&#x2F;&#x2F;www.anghyflawn.net&#x2F;blog&#x2F;2014&#x2F;emacs-give-a-doi-get-a-bibtex-entry&#x2F;
+(defun get-bibtex-from-doi (doi)
+  &quot;Get a BibTeX entry from the DOI&quot;
+  (interactive &quot;MDOI: &quot;)
+  (let ((url-mime-accept-string &quot;text&#x2F;bibliography;style=bibtex&quot;))
+    (with-current-buffer
+        (url-retrieve-synchronously
+         (format &quot;http:&#x2F;&#x2F;dx.doi.org&#x2F;%s&quot;
+                 (replace-regexp-in-string &quot;http:&#x2F;&#x2F;dx.doi.org&#x2F;&quot; &quot;&quot; doi)))
+      (switch-to-buffer (current-buffer))
+      (goto-char (point-max))
+      (setq bibtex-entry
+            (buffer-substring
+             (string-match &quot;@&quot; (buffer-string))
+             (point)))
+      (kill-buffer (current-buffer))))
+  (insert (decode-coding-string bibtex-entry &#x27;utf-8))
+  (bibtex-fill-entry))
+</code></pre>
+<p>In practice, I found it a bit cumbersome to add manually the org-structure with the title. My current workflow exploit org-bibtex to convert bibtex code into org-mode structure ! After generating the bibtex with the previous code, I cut the bibtex then cadd <code>org-bibtex-yank</code>. It will give</p>
+<pre><code>* From FastQ Data to High‐Confidence Variant Calls: The Genome Analysis Toolkit Best Practices Pipeline
+:PROPERTIES:
+:TITLE:    From FastQ Data to High‐Confidence Variant Calls: The Genome Analysis Toolkit Best Practices Pipeline
+:BTYPE:    article
+:CUSTOM_ID: vanDerAuwera2013
+:VOLUME:   43
+:ISSN:     1934-340X
+:URL:      http:&#x2F;&#x2F;dx.doi.org&#x2F;10.1002&#x2F;0471250953.bi1110s43
+:DOI:      10.1002&#x2F;0471250953.bi1110s43
+:NUMBER:   1
+:JOURNAL:  Current Protocols in Bioinformatics
+:PUBLISHER: Wiley
+:AUTHOR:   Van der Auwera, Geraldine A. and Carneiro, Mauricio O. and Hartl, Christopher and Poplin, Ryan and del Angel, Guillermo and Levy‐Moonshine, Ami and Jordan, Tadeusz and Shakir, Khalid and Roazen, David and Thibault, Joel and Banks, Eric and Garimella, Kiran V. and Altshuler, David and Gabriel, Stacey and DePristo, Mark A.
+:YEAR:     2013
+:MONTH:    Oct
+:END:
+</code></pre>
+<p>Then call <code>org-bibtex</code> to generate the final bibtex file.</p>
+<h2 id="writing-papers-org-mode-or-latex">Writing papers : org-mode or LaTeX ?<a class="zola-anchor" href="#writing-papers-org-mode-or-latex" aria-label="Anchor link for: writing-papers-org-mode-or-latex" style="visibility: hidden;">#</a></h2>
+<p>It is possible to write a full manuscript in org-mode, see Daniel Gomez's <a href="https://github.com/dangom/org-thesis">repository on Github</a> example.
+It allows to fully concentrate on the content as writing in full LaTeX makes it harder due to the extra formatting. However, set-up can be a bit cumbersume and collaborating with others in not easy.</p>
+<p>My current setup is to write the outline and most of the content in org-mode, then export to latex and upload it to Overleaf.</p>
+
+        
+      </article>
+
+      
+      
+    </div>
+
+    <footer>
+  <div class="copyright">
+    <p>© 2024 Alexis Praga</p>
+
+  </div>
+  
+  <div class="credits">
+    powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>serene</a>
+  </div>
+  
+</footer>
+  </main>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
