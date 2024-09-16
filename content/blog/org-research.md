@@ -9,7 +9,7 @@ Here's is my current (simple) workflow for working in org-mode to do research by
 Nicolas Rougier has a [very nice configuration](https://www.labri.fr/perso/nrougier/GTD/index.html) for implementing Getting Things Done (GTD) in emacs: 
 But I prefer to only have the dasks for today in the agenda, like this:
 
-![My simple org-agenda](../images/org-agenda.png)
+![My simple org-agenda](/images/org-agenda.png)
 
 For managing projects, I use the `CATEGORY` property (displayed left in org-agenda) and add tags for more details (displayed right in org-agenda). 
 
