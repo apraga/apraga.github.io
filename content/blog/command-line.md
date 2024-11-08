@@ -11,21 +11,23 @@ Here is a curated list of tools that I cannot live without, after many iteration
 - *Manage tasks* with [taskwarrior](https://taskwarrior.org/) for non Org-mode users. More on that in a future post.
 - *Write papers and report* with [typst](https://typst.app/). More on that in a future post.
 - [ripgrep](https://github.com/BurntSushi/ripgrep) is a modern `grep` but cross-platform and faster.
-- for the *terminal*, I use [kitty](https://sw.kovidgoyal.net/kitty/) that has windows, tabs and image rendering. Alternative are `wezterm` or `alacritty` (with a terminal multiplexer, see below).
-- [lazygit](https://github.com/jesseduffield/lazygit) makes working with command-line git easier with a simple terminal interface. Like `magit` in emacs, but with less features. I prefer `gitui` interface but due to a `libgit2` issue, pushing may fail (see [this issue](https://github.com/extrawurst/gitui/issues/2158). 
+- for the *terminal*, I use [alacritty](https://github.com/alacritty/alacritty), that is also available on Windows, along with [zellij](https://zellij.dev/) for multiplexing. Alternative are `wezterm` or `kitty` (not available on Windows) that have built-in tabs and windows but 
+- [jj](https://martinvonz.github.io/jj/latest/) has replaced `git`. But there are nice TUI interfaces with git worth mentioning : `lazygit` (or `gitui` but [this issue](https://github.com/extrawurst/gitui/issues/2158) is troublesome).
+- search shell history with [atuin](https://atuin.sh/)
+- manage dotfiles with [chezmoi](https://www.chezmoi.io/quick-start/)
 
 ## For the occasional use
 - [zola](https://www.getzola.org/) is a super-fast app for generating the static website (used for this site). There are several, nice-looking theme
--  [mdBook](https://rust-lang.github.io/mdBook/) is my go-to way of generating documentation. Theme is very readable and setup is reasosably fast.
+- [mdBook](https://rust-lang.github.io/mdBook/) is my go-to way of generating documentation. Theme is very readable and setup is reasonably fast.
 
 ## Awesome tools that I no longer use
 
 These may be of interest to other people but these are been superseded in my workflow
 - [zellij](https://zellij.dev/) is a rewrite in rust of `tmux`. 2 things that I really like : shortcuts are saner and you can open an editor to copy history (`C-s` then `e`). With `kitty`, I no longer use it.
 - Replacement of `find`, `ls` and `bat` in Rust are really cool but in practice, `nushell` is enough for my cases:
-  - [fd](https://github.com/sharkdp/fd) sas an easier syntax than `find` (written in Rust). For example, convert all org files to markdown with ` fd -e md -x pandoc {} -o {.}.md`.)
+  - [fd](https://github.com/sharkdp/fd) has an easier syntax than `find` (written in Rust). For example, convert all org files to markdown with ` fd -e md -x pandoc {} -o {.}.md`.)
   - [sd](https://github.com/chmln/sd) also offers a simpler way to replace text  with `sd`. Example: replace `title:` by `title =` : ` sd 'title:' 'title = '`
-  - [eza](https://github.com/eza-community/eza) can replase `ls`
+  - [eza](https://github.com/eza-community/eza) can replace `ls`
   - and [bat](sttps://github.com/sharkdp/bat) is more colorful that `cat`
 
 ## Inspiration
