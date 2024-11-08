@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  
+  
+  
+
+  <title>Command-line mail</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  
+  <style>
+
+  /* light mode colors */
+  body {
+    --primary-color: #5871a2;
+    --primary-pale-color: #5871a210;
+    --text-color: #3C4043;
+    --text-pale-color: #94969f;
+    --bg-color: #ffffff; 
+    --highlight-mark-color: #5f75b045;
+  
+    --callout-note-color: #5871a2;
+    --callout-important-color: #8062b0;
+    --callout-warning-color: #936e51;
+    --callout-alert-color: #bc5252;
+    --callout-question-color: #477389;
+    --callout-tip-color: #3c8460;
+  }
+
+  /* dark mode colors */
+  body.dark {
+    --primary-color: #5d77ac;
+    --primary-pale-color: #5d77ac20;
+    --text-color: #9197a5;
+    --text-pale-color: #747983;
+    --bg-color: #202124;
+    --highlight-mark-color: #5f75b045;
+
+    --callout-note-color: #5d77ac;
+    --callout-important-color: #8062b0;
+    --callout-warning-color: #936e51;
+    --callout-alert-color: #bc5252;
+    --callout-question-color: #477389;
+    --callout-tip-color: #3c8460;
+  }
+
+  /* typography */
+  body {
+    --main-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --homepage-max-width: 768px;
+    --main-max-width: 768px;
+    --avatar-size: 60px;
+    --icon-size: 20px;
+    --homepage-font-size: 16px;
+    --homepage-line-height: 1.75;
+    --paragraph-font-size: 16px;
+    --paragraph-line-height: 1.75;
+    --aside-font-size: 15px;
+    --img-border-radius: 0px;
+    --dark-mode-img-brightness: 0.75;
+    --dark-mode-chart-brightness: 0.75;
+    --inline-code-border-radius: 2px;
+    --inline-code-bg-color: var(--primary-pale-color);
+    --block-code-border-radius: 0px;
+    --block-code-border-color: var(--primary-color);
+    --detail-border-color: var(--primary-color);
+  }
+
+</style>
+
+  <link rel="stylesheet" href="/main.css">
+  
+
+
+
+  
+</head>
+
+<body class="post">
+  <script>
+    const theme = sessionStorage.getItem('theme');
+    const match = window.matchMedia("(prefers-color-scheme: dark)").matches
+    if ((theme && theme == 'dark') || (!theme && match)) {
+      document.body.classList.add('dark');
+      const hl = document.querySelector('link#hl');
+      if (hl) hl.href = '/hl-dark.css';
+    }
+  </script>
+  
+<header  class="blur" >
+  <div id="header-wrapper">
+    <nav>
+      <a class="instant" href="/">apraga</a>
+      
+        <button id="toggler" class="separator" aria-label="toggle expand">::</button>
+      
+      
+        <span class="wrap left fold">{</span>
+        
+        
+        
+        
+          
+          
+          <a class="instant " href="&#x2F;blog">blog</a>
+          <span class="wrap-separator fold">,</span>
+        
+          
+          
+            
+          
+          <a class="instant fold" href="&#x2F;about">about</a>
+          
+        
+        <span class="wrap right fold">} ;</span>
+      
+    </nav>
+    <div id="btns">
+      
+      
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+      <button id="theme-toggle" aria-label="theme switch" data-moon-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;" data-sun-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+      </button>
+
+      
+      
+      
+      
+      <button id="toc-toggle" aria-label="table of content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z" fill="currentColor"></path></svg>
+      </button>
+      
+      
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<div id="wrapper">
+  <div id="blank"></div>
+  <aside>
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a class="h2" href="#mbsync-and-gmail">Mbsync and Gmail</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#msmtp">Msmtp</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#notmuch-and-emacs">Notmuch and emacs</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#what-about-gnus">What about gnus ?</a>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+    
+    <button id="back-to-top" aria-label="back to top">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M11.9997 10.8284L7.04996 15.7782L5.63574 14.364L11.9997 8L18.3637 14.364L16.9495 15.7782L11.9997 10.8284Z" fill="currentColor"></path></svg>
+    </button>
+    
+  </aside>
+  <main>
+    <div>
+      
+      
+      
+      
+      <div id="copy-cfg" style="display: none;" data-copy-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;" data-check-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;"></div>
+      
+      
+      <article class="prose" data-backlink-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;20&quot; height=&quot;20&quot;&gt;&lt;path d=&quot;M9.41421 8L18.0208 16.6066L16.6066 18.0208L8 9.41421V17H6V6H17V8H9.41421Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;">
+        <h1>Command-line mail</h1>
+        <div id="post-info">
+          <div id="date">
+            <span id="publish">2020-10-01</span>
+            </div>
+
+          
+
+          
+        </div>
+
+        
+        
+
+        
+
+        
+
+        
+          <p>Today, we will see how to get mails, read them, and answer them, inside
+a terminal. We will need four utilities for that :</p>
+<ul>
+<li>one to synchronize our local mails with the server :
+<code>mbsync</code>{.verbatim},</li>
+<li>a mail client for viewing them : emacs with <code>notmuch</code>{.verbatim}</li>
+<li>an agent for sending mails : <code>msmtp</code>{.verbatim} a good choice (or
+sendmail, which should be installed by default on most Linux and BSD
+distribution )</li>
+</ul>
+<p>Install each of this utilities according to the usual way of your
+distribution. The following tutorial assumes you have two accounts, one
+of them being Gmail.</p>
+<h2 id="mbsync-and-gmail">Mbsync and Gmail<a class="zola-anchor" href="#mbsync-and-gmail" aria-label="Anchor link for: mbsync-and-gmail" style="visibility: hidden;">#</a></h2>
+<p>Here we will configure a gmail account using <code>~/.msmtprc</code>{.verbatim}.
+Let's break down the configuration file. First, for increased security,
+generate an app password using
+<a href="https://myaccount.google.com/apppasswords">https://myaccount.google.com/apppasswords</a> and encrypt it with gpg:</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">#---------------------------------
+# Gmail
+#---------------------------------
+IMAPAccount gmail
+# Address to connect to
+Host imap.gmail.com
+User alexis.praga@gmail.com
+PassCmd &quot;gpg2 -q --for-your-eyes-only --no-tty -d ~&#x2F;.gmailpass.gpg&quot;
+# Use SSL
+SSLType IMAPS
+CertificateFile &#x2F;usr&#x2F;local&#x2F;share&#x2F;certs&#x2F;ca-root-nss.crt
+
+IMAPStore gmail-remote
+Account gmail
+</code></pre>
+<p>Then define the folders for your mail. <code>~mail/gmail</code>{.verbatim} contains
+an Inbox and an Archive folder. It must be of the <code>maildir</code>{.verbatim}
+format. Using the fish shell syntax:</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">for i in cur new tmp
+  mkdir -p ~&#x2F;mail&#x2F;gmail&#x2F;inbox&#x2F;$i
+  mkdir -p ~&#x2F;mail&#x2F;gmail&#x2F;archive&#x2F;$i
+end
+</code></pre>
+<p>Now, return to <code>~/.mbsyncrc</code>{.verbatim}:</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">MaildirStore gmail-local
+# Important: we need to be able to move files. The &quot;native&quot; setting results in duplicates and errors+++
+AltMap yes
+Subfolders Verbatim
+# The trailing &quot;&#x2F;&quot; is important
+Path ~&#x2F;mail&#x2F;gmail&#x2F;
+Inbox ~&#x2F;mail&#x2F;gmail&#x2F;inbox
+</code></pre>
+<p>Then the hard part: how to synchronize folders with gmail ? I've chosen
+to put incoming mail in <code>inbox</code>{.verbatim} and everything else in
+<code>archive</code>{.verbatim}</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash"># Exclude everything under the internal [Gmail] folder, except the interesting folders
+# ALl (and I mean all) mail is in All mail.
+# With this setup, we have duplicates in inbox and in all mail (that&#x27;s ok, should not be much)
+# There is no need for sent folder as it is also in all mail+++
+# We also need deleted messages because the iPhone do not delete mail but create
+# this label instead+++ So we have to get it here, delete et sync with the
+# server
+Channel gmail-default
+Far :gmail-remote:
+Near :gmail-local:
+# Select some mailboxes to sync
+Patterns &quot;INBOX&quot;
+Create Near
+# Save the synchronization state files in the relevant directory
+SyncState *
+
+# Name translation
+Channel gmail-archive
+Far :gmail-remote:&quot;[Gmail]&#x2F;All Mail&quot;
+Near :gmail-local:archive
+Create Near
+SyncState *
+
+Channel gmail-trash
+Far :gmail-remote:&quot;Deleted Messages&quot;
+Near :gmail-local:trash
+Create Near
+SyncState *
+
+# Get all the channels together into a group.
+Group googlemail
+Channel gmail-default
+Channel gmail-archive
+Channel gmail-trash
+</code></pre>
+<p>A second account can be set the same way :</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">#---------------------------------
+# Free
+#---------------------------------
+IMAPAccount free
+# Address to connect to
+Host imap.free.fr
+User alexis.praga@free.fr
+# The file is encrypted with &quot;gpg -e&quot;
+PassCmd &quot;gpg2 -q --for-your-eyes-only --no-tty -d ~&#x2F;.freepass.gpg&quot;
+# Use SSL
+SSLType IMAPS
+CertificateFile &#x2F;usr&#x2F;local&#x2F;share&#x2F;certs&#x2F;ca-root-nss.crt
+
+IMAPStore free-remote
+Account free
+
+MaildirStore free-local
+# Important: we need to be able to move files. The &quot;native&quot; setting results in duplicates and errors+++
+AltMap yes
+Subfolders Verbatim
+# The trailing &quot;&#x2F;&quot; is important
+Path ~&#x2F;mail&#x2F;free&#x2F;
+Inbox ~&#x2F;mail&#x2F;free&#x2F;inbox
+
+Channel free-default
+Far :free-remote:
+Near :free-local:
+Patterns &quot;INBOX&quot;
+Create Near
+SyncState *
+
+# Name translation
+Channel free-archive
+Far :free-remote:&quot;Archive&quot;
+Near :free-local:archive
+Create Near
+SyncState *
+
+# Name translation
+Channel free-sent
+Far :free-remote:&quot;Sent&quot;
+Near :free-local:sent
+Create Near
+SyncState *
+
+# Get all the channels together into a group.
+Group freemail
+Channel free-default
+Channel free-archive
+</code></pre>
+<h2 id="msmtp">Msmtp<a class="zola-anchor" href="#msmtp" aria-label="Anchor link for: msmtp" style="visibility: hidden;">#</a></h2>
+<p>To send mail, I use the gmail account for that :</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash"># Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file &#x2F;usr&#x2F;local&#x2F;share&#x2F;certs&#x2F;ca-root-nss.crt
+logfile        ~&#x2F;.msmtp.log
+
+# Gmail
+account        gmail
+host           smtp.gmail.com
+port           587
+from           horse1@gmail.com
+user           john.doe
+password       XXXXXXX
+
+# Set a default account
+account default : gmail
+</code></pre>
+<p>Change the permissions :</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">$ chmod 600 ~&#x2F;.msmtprc
+</code></pre>
+<p>Then, you can try sending mail with the following command :</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">$ cat test.mail | msmtp -a default account1@gmail.com 
+</code></pre>
+<p>where test.mail is an simple file like this one (there must be an empty
+line after the subject):</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">To: account1@gmail.com
+From: fake@gmail.com
+Subject: Test &amp;lt;br&#x2F;&amp;gt; 
+
+Hello !
+</code></pre>
+<h2 id="notmuch-and-emacs">Notmuch and emacs<a class="zola-anchor" href="#notmuch-and-emacs" aria-label="Anchor link for: notmuch-and-emacs" style="visibility: hidden;">#</a></h2>
+<p>Notmuch is an awesome tool to manage your mail. Basically, it does not
+touch your mail but rather operates on tags. So an incoming mail will be
+tagged as <code>inbox</code>{.verbatim} and if you delete it, it will be replaced
+by the <code>deleted</code>{.verbatim} tag. It allows for fast indexing and quick
+search of your mail. The only drawback is that it does <strong>not</strong> move your
+mail. So deleting for real must be done manually.</p>
+<p>Anway, it's awesome and you should use it in 2021 !</p>
+<p>Configuration is pretty straightforward. The first time, run</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">notmuch
+notmuch new
+</code></pre>
+<p>and follow the instructions.</p>
+<p>Then I have a script running as a cron job to synchronize my mail and
+move mails in the proper folder (<code>inbox</code>{.verbatim},
+<code>archive</code>{.verbatim}) or delete it :</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">#!&#x2F;usr&#x2F;local&#x2F;bin&#x2F;fish
+
+# Combine mbsync and notmuch because mbsync may fail and we still want notmuch to run (as we keep getting quota errors)
+# So we must have the two command here
+
+mbsync -a
+
+set args --output=files --format=text0
+
+# Tagsent mails (by default, there are not tagged)
+set filter &quot;(folder:gmail&#x2F;inbox or folder:free&#x2F;inbox or tag:inbox) and from:\&quot;Alexis Praga\&quot;&quot;
+notmuch tag +sent +archived -inbox --  $filter
+
+# Move archived mail from inbox to archive folder
+set filter tag:archived folder:gmail&#x2F;inbox
+notmuch search $args $filter  | xargs -0 -J {} mv {} ~&#x2F;mail&#x2F;gmail&#x2F;archive&#x2F;cur
+
+set filter tag:archived folder:free&#x2F;inbox
+notmuch search $args $filter  | xargs -0 -J {} mv {} ~&#x2F;mail&#x2F;free&#x2F;archive&#x2F;cur
+
+# Really delete &quot;deleted messages&quot; from gmail
+set filter &quot;folder:gmail&#x2F;trash&quot;
+notmuch tag +deleted --  $filter
+
+# delete mails as notmuch cannot do it
+set filter &quot;(folder:free&#x2F;inbox or folder:gmail&#x2F;inbox or folder:gmail&#x2F;trash) and tag:deleted&quot;
+notmuch search $args $filter  | xargs -0 -J {} mv {} ~&#x2F;mail&#x2F;trash&#x2F;cur
+
+# Get new mail
+notmuch new
+
+❯ crontab -l
+MAILTO=&quot;&quot;
+*&#x2F;5 * * * * $HOME&#x2F;scripts&#x2F;mbsync_notmuch.sh
+</code></pre>
+<p>Then I can read the email inside emacs with the <code>notmuch</code>{.verbatim}
+plugin.</p>
+<h2 id="what-about-gnus">What about gnus ?<a class="zola-anchor" href="#what-about-gnus" aria-label="Anchor link for: what-about-gnus" style="visibility: hidden;">#</a></h2>
+<p>I've tried it two times because the concept was appealing: manage your
+mail as a newserver is cool. The major drawback is the lack of
+integration for notmuch. You can make it work with <code>mairix</code>{.verbatim}
+but its super slow.</p>
+
+        
+      </article>
+
+      
+      
+    </div>
+
+    <footer>
+  <div class="copyright">
+    <p>© 2024 Alexis Praga</p>
+
+  </div>
+  
+  <div class="credits">
+    powered by
+    <a href="https://www.getzola.org" target="_blank" rel='noreferrer noopener'>zola</a>
+    and
+    <a href="https://github.com/isunjn/serene" target="_blank" rel='noreferrer noopener'>serene</a>
+  </div>
+  
+</footer>
+  </main>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
