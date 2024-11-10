@@ -3,276 +3,166 @@ title = "Command-line mail"
 date = 2020-10-01
 +++
 
-Today, we will see how to get mails, read them, and answer them, inside
-a terminal. We will need four utilities for that :
+Today, we will see how to read and mails locally inside a terminal. My process use 5 tools (!) but allows for a very fast search with `notmuch`:
 
--   one to synchronize our local mails with the server :
-    `mbsync`{.verbatim},
--   a mail client for viewing them : emacs with `notmuch`{.verbatim}
--   an agent for sending mails : `msmtp`{.verbatim} a good choice (or
-    sendmail, which should be installed by default on most Linux and BSD
-    distribution )
+1. synchronize mail locally (`mbsync`)
+2. index and tag mail (`notmuch`)
+3. use an email client (`neomutt`), with `msmtp` for sending mail 
+4. move mails according to the tags (`afew`)
 
-Install each of this utilities according to the usual way of your
-distribution. The following tutorial assumes you have two accounts, one
-of them being Gmail.
-
-## Mbsync and Gmail
-
-Here we will configure a gmail account using `~/.msmtprc`{.verbatim}.
-Let\'s break down the configuration file. First, for increased security,
-generate an app password using
-<https://myaccount.google.com/apppasswords> and encrypt it with gpg:
-
+The command to keep everyone in sync and happy:
 ```bash
-#---------------------------------
-# Gmail
-#---------------------------------
-IMAPAccount gmail
-# Address to connect to
-Host imap.gmail.com
-User alexis.praga@gmail.com
-PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.gmailpass.gpg"
-# Use SSL
+afew -am ; mbsync -a ; notmuch new
+```
+*Updated on: 2024-11-11*
+
+## Synchronize mail locally (mbsync)
+
+Mbsync setup with an Infomaniak email account with the following `~/.mbsyncrc`. The list of folders is hardcoded in `Patterns`:
+```bash 
+IMAPAccount infomaniak
+Host mail.infomaniak.com
+Port 993
+User $USER
+Pass  $PASS
 SSLType IMAPS
-CertificateFile /usr/local/share/certs/ca-root-nss.crt
 
-IMAPStore gmail-remote
-Account gmail
-```
+IMAPStore info-remote
+Account infomaniak
 
-Then define the folders for your mail. `~mail/gmail`{.verbatim} contains
-an Inbox and an Archive folder. It must be of the `maildir`{.verbatim}
-format. Using the fish shell syntax:
-
-```bash
-for i in cur new tmp
-  mkdir -p ~/mail/gmail/inbox/$i
-  mkdir -p ~/mail/gmail/archive/$i
-end
-```
-
-Now, return to `~/.mbsyncrc`{.verbatim}:
-
-```bash
-MaildirStore gmail-local
-# Important: we need to be able to move files. The "native" setting results in duplicates and errors+++
-AltMap yes
+MaildirStore info-local
+Path ~/mail/
+Inbox ~/mail/INBOX/
 Subfolders Verbatim
-# The trailing "/" is important
-Path ~/mail/gmail/
-Inbox ~/mail/gmail/inbox
-```
 
-Then the hard part: how to synchronize folders with gmail ? I\'ve chosen
-to put incoming mail in `inbox`{.verbatim} and everything else in
-`archive`{.verbatim}
+Channel info
+Far :info-remote:
+Near :info-local:
+Patterns INBOX Archives Drafts Sent Spam Trash 
+Create Both
+Expunge Both
+SyncState *
+```
+Try it with `mbsync -a`.
+
+## Index and tag mail (`notmuch`)
+
+For faster search, we create a local database for mails. This adds another layer on our stack as we will need to synchronize the database with locat files. `notmuch` do not delete files ! Configuration is simple:
 
 ```bash
-# Exclude everything under the internal [Gmail] folder, except the interesting folders
-# ALl (and I mean all) mail is in All mail.
-# With this setup, we have duplicates in inbox and in all mail (that's ok, should not be much)
-# There is no need for sent folder as it is also in all mail+++
-# We also need deleted messages because the iPhone do not delete mail but create
-# this label instead+++ So we have to get it here, delete et sync with the
-# server
-Channel gmail-default
-Far :gmail-remote:
-Near :gmail-local:
-# Select some mailboxes to sync
-Patterns "INBOX"
-Create Near
-# Save the synchronization state files in the relevant directory
-SyncState *
-
-# Name translation
-Channel gmail-archive
-Far :gmail-remote:"[Gmail]/All Mail"
-Near :gmail-local:archive
-Create Near
-SyncState *
-
-Channel gmail-trash
-Far :gmail-remote:"Deleted Messages"
-Near :gmail-local:trash
-Create Near
-SyncState *
-
-# Get all the channels together into a group.
-Group googlemail
-Channel gmail-default
-Channel gmail-archive
-Channel gmail-trash
+notmuch init
 ```
 
-A second account can be set the same way :
+## Use an email client (`neomutt`)
 
-```bash
-#---------------------------------
-# Free
-#---------------------------------
-IMAPAccount free
-# Address to connect to
-Host imap.free.fr
-User alexis.praga@free.fr
-# The file is encrypted with "gpg -e"
-PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.freepass.gpg"
-# Use SSL
-SSLType IMAPS
-CertificateFile /usr/local/share/certs/ca-root-nss.crt
+Configuration is not straightforward with notmuch: it requires virtual-mailbox instead for directories. Here is my `~/.config/neomutt/neomuttrc`:
 
-IMAPStore free-remote
-Account free
+```mutt
+#---- Mail setup ----
+set from = "$EMAILdev"
+set realname = "Alexis Praga"
+set mbox_type = Maildir # an we avoid that ?
+set folder = "~/mail"
+set sendmail = "msmtp"
 
-MaildirStore free-local
-# Important: we need to be able to move files. The "native" setting results in duplicates and errors+++
-AltMap yes
-Subfolders Verbatim
-# The trailing "/" is important
-Path ~/mail/free/
-Inbox ~/mail/free/inbox
+# notmuch
+set nm_default_url = "notmuch:///home/alex/mail"
+set virtual_spoolfile=yes                          # enable virtual folders
+virtual-mailboxes \
+    "INBOX"     "notmuch://?query=tag:inbox"\
+    "Archives"     "notmuch://?query=tag:archive"\
+    "Unread"    "notmuch://?query=tag:unread"\
+    "Starred"   "notmuch://?query=tag:*"\
+    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
+# notmuch bindings
+macro index s "<vfolder-from-query>"              # looks up a hand made query
+macro index a "<modify-labels>+archive -unread -inbox<enter>"        # tag as Archived
+bind index g noop
+bind pager g noop
+macro index,pager gi      "<change-vfolder>!<enter>"                  "Go to Inbox"
+macro index,pager ga      "<change-vfolder>Archives<enter>"                  "Go to Inbox"
+macro index,pager gs      "<change-vfolder>Sent<enter>"                  "Go to Inbox"
+macro index d "<modify-labels-then-hide>-inbox -unread +deleted<enter>" # tag as Junk mail
+macro index + "<modify-labels>+*<enter><sync-mailbox>"               # tag as starred
+macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
+macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
 
-Channel free-default
-Far :free-remote:
-Near :free-local:
-Patterns "INBOX"
-Create Near
-SyncState *
+# Adress completion
+set query_command = "notmuch address %s"
+set query_format = "%5c %t %a %n %?e?(%e)?"
+bind editor <Tab> complete-query
 
-# Name translation
-Channel free-archive
-Far :free-remote:"Archive"
-Near :free-local:archive
-Create Near
-SyncState *
+# mailbox settings
+set spoolfile = +INBOX
+set postponed = +Drafts
+set record = +Sent
+set trash = +Trash
 
-# Name translation
-Channel free-sent
-Far :free-remote:"Sent"
-Near :free-local:sent
-Create Near
-SyncState *
+# cache settings
+set header_cache = "~/.cache/mutt/infomaniak/header_cache"
+set message_cachedir = "~/.cache/mutt/infomaniak/message_cache"
 
-# Get all the channels together into a group.
-Group freemail
-Channel free-default
-Channel free-archive
+# synchronization settings ['s' to sync]
+macro index S "<shell-escape>mbsync -a<enter>" "sync email"
+
+#---- Esthetic setup ----
+# set sidebar_visible = yes
+
+# Better sort
+set sort = 'threads'
+set sort_aux = 'reverse-date-received'
+
+# view html automatically
+auto_view text/html                                      
+alternative_order text/plain text/enriched text/html 
 ```
 
-## Msmtp
-
-To send mail, I use the gmail account for that :
-
-```bash
-# Set default values for all following accounts.
+### `msmtp` for sending mail 
+A simple version with password stored in plain text: ~/.msmtprc
+```
 defaults
 auth           on
 tls            on
-tls_trust_file /usr/local/share/certs/ca-root-nss.crt
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
 logfile        ~/.msmtp.log
 
-# Gmail
-account        gmail
-host           smtp.gmail.com
-port           587
-from           horse1@gmail.com
-user           john.doe
-password       XXXXXXX
+account        infomaniak 
+host           mail.infomaniak.com
+port           465
+tls_starttls   off
+from           $EMAIL
+user           $EMAIL
+password       $PASS
 
-# Set a default account
-account default : gmail
+account default: infomaniak
 ```
-
-Change the permissions :
-
+Change permissions
 ```bash
 $ chmod 600 ~/.msmtprc
 ```
-
-Then, you can try sending mail with the following command :
-
+Test it with :
 ```bash
-$ cat test.mail | msmtp -a default account1@gmail.com 
+echo "this is some content2" | msmtp -a infomaniak -- $EMAIL
 ```
 
-where test.mail is an simple file like this one (there must be an empty
-line after the subject):
+## Move mails according to the tags (`afew`)
 
-```bash
-To: account1@gmail.com
-From: fake@gmail.com
-Subject: Test &lt;br/&gt; 
+`notmuch` will not rename or move files around. `afew` offers an easy way to do that. I move files between the inbox, trash and archives according to flags:
 
-Hello !
 ```
+# This is the default filter chain
+[SpamFilter]
+[KillThreadsFilter]
+[ListMailsFilter]
+[ArchiveSentMailsFilter]
+[InboxFilter]
 
-## Notmuch and emacs
+[MailMover]
+folders = INBOX Archives Trash
+rename = True
 
-Notmuch is an awesome tool to manage your mail. Basically, it does not
-touch your mail but rather operates on tags. So an incoming mail will be
-tagged as `inbox`{.verbatim} and if you delete it, it will be replaced
-by the `deleted`{.verbatim} tag. It allows for fast indexing and quick
-search of your mail. The only drawback is that it does **not** move your
-mail. So deleting for real must be done manually.
-
-Anway, it\'s awesome and you should use it in 2021 !
-
-Configuration is pretty straightforward. The first time, run
-
-```bash
-notmuch
-notmuch new
+# rules
+INBOX = 'tag:deleted':Trash 'tag:archive':Archives
+Archives = 'tag:deleted':Trash 'tag:inbox':INBOX
+Trash = 'NOT tag:deleted AND tag:inbox':INBOX 'NOT tag:deleted AND tag:archive':Archives
 ```
-
-and follow the instructions.
-
-Then I have a script running as a cron job to synchronize my mail and
-move mails in the proper folder (`inbox`{.verbatim},
-`archive`{.verbatim}) or delete it :
-
-```bash
-#!/usr/local/bin/fish
-
-# Combine mbsync and notmuch because mbsync may fail and we still want notmuch to run (as we keep getting quota errors)
-# So we must have the two command here
-
-mbsync -a
-
-set args --output=files --format=text0
-
-# Tagsent mails (by default, there are not tagged)
-set filter "(folder:gmail/inbox or folder:free/inbox or tag:inbox) and from:\"Alexis Praga\""
-notmuch tag +sent +archived -inbox --  $filter
-
-# Move archived mail from inbox to archive folder
-set filter tag:archived folder:gmail/inbox
-notmuch search $args $filter  | xargs -0 -J {} mv {} ~/mail/gmail/archive/cur
-
-set filter tag:archived folder:free/inbox
-notmuch search $args $filter  | xargs -0 -J {} mv {} ~/mail/free/archive/cur
-
-# Really delete "deleted messages" from gmail
-set filter "folder:gmail/trash"
-notmuch tag +deleted --  $filter
-
-# delete mails as notmuch cannot do it
-set filter "(folder:free/inbox or folder:gmail/inbox or folder:gmail/trash) and tag:deleted"
-notmuch search $args $filter  | xargs -0 -J {} mv {} ~/mail/trash/cur
-
-# Get new mail
-notmuch new
-
-❯ crontab -l
-MAILTO=""
-*/5 * * * * $HOME/scripts/mbsync_notmuch.sh
-```
-
-Then I can read the email inside emacs with the `notmuch`{.verbatim}
-plugin.
-
-## What about gnus ?
-
-I\'ve tried it two times because the concept was appealing: manage your
-mail as a newserver is cool. The major drawback is the lack of
-integration for notmuch. You can make it work with `mairix`{.verbatim}
-but its super slow.
