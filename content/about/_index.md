@@ -20,6 +20,7 @@ lang = 'en'
 # Talks
 
 - FOSDEM 2024, lighthing talk : [slides](/slides/fosdem2024), [official website](https://fosdem.org/2024/schedule/event/fosdem-2024-3058-nix-for-genetics-powering-a-bioinformatics-pipeline/)
+- JCADD2 024, 15min : [slides](https://jcad2024.sciencesconf.org/data/PRESENTATION_Un_Pipeline_Reproductible_Pour_PRAGA_ALEXIS_last.pdf), [talk](https://www.canal-u.tv/chaines/jcad/un-pipeline-reproductible-pour-la-reanalyse-de-donnees-d-exome-en-genetique)
 
 # Others
 
