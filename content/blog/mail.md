@@ -7,7 +7,7 @@ Today, we will see how to read and mails locally inside a terminal. My process u
 
 1. synchronize mail locally (`mbsync`)
 2. index and tag mail (`notmuch`)
-3. use an email client (`neomutt`), with `msmtp` for sending mail 
+3. use an email client (`neomutt`), with `msmtp` for sending mail
 4. move mails according to the tags (`afew`)
 
 The command to keep everyone in sync and happy:
@@ -19,7 +19,7 @@ afew -am ; mbsync -a ; notmuch new
 ## Synchronize mail locally (mbsync)
 
 Mbsync setup with an Infomaniak email account with the following `~/.mbsyncrc`. The list of folders is hardcoded in `Patterns`:
-```bash 
+```bash
 IMAPAccount infomaniak
 Host mail.infomaniak.com
 Port 993
@@ -38,7 +38,7 @@ Subfolders Verbatim
 Channel info
 Far :info-remote:
 Near :info-local:
-Patterns INBOX Archives Drafts Sent Spam Trash 
+Patterns INBOX Archives Drafts Sent Spam Trash
 Create Both
 Expunge Both
 SyncState *
@@ -113,11 +113,11 @@ set sort = 'threads'
 set sort_aux = 'reverse-date-received'
 
 # view html automatically
-auto_view text/html                                      
-alternative_order text/plain text/enriched text/html 
+auto_view text/html
+alternative_order text/plain text/enriched text/html
 ```
 
-### `msmtp` for sending mail 
+### `msmtp` for sending mail
 A simple version with password stored in plain text: ~/.msmtprc
 ```
 defaults
@@ -126,7 +126,7 @@ tls            on
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
 logfile        ~/.msmtp.log
 
-account        infomaniak 
+account        infomaniak
 host           mail.infomaniak.com
 port           465
 tls_starttls   off
@@ -147,7 +147,7 @@ echo "this is some content2" | msmtp -a infomaniak -- $EMAIL
 
 ## Move mails according to the tags (`afew`)
 
-`notmuch` will not rename or move files around. `afew` offers an easy way to do that. I move files between the inbox, trash and archives according to flags:
+`notmuch` will not rename or move files around. `afew` offers an easy way to do that. I use the default filters and I move files accordingly.
 
 ```
 # This is the default filter chain
@@ -155,7 +155,12 @@ echo "this is some content2" | msmtp -a infomaniak -- $EMAIL
 [KillThreadsFilter]
 [ListMailsFilter]
 [ArchiveSentMailsFilter]
-[InboxFilter]
+[InboxFilter] # replace new by inbox
+
+[Filter.1] # remove inbox tag for archived
+query = 'tag:archive AND tag:inbox'
+tags = -inbox
+message = 'Remove inbox tag for archived mails'
 
 [MailMover]
 folders = INBOX Archives Trash
@@ -163,6 +168,6 @@ rename = True
 
 # rules
 INBOX = 'tag:deleted':Trash 'tag:archive':Archives
-Archives = 'tag:deleted':Trash 'tag:inbox':INBOX
+Archives = 'tag:deleted':Trash
 Trash = 'NOT tag:deleted AND tag:inbox':INBOX 'NOT tag:deleted AND tag:archive':Archives
 ```
