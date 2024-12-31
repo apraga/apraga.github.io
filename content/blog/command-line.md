@@ -34,6 +34,8 @@ with git worth mentioning : `lazygit` [^1]
 
 - [zola](https://www.getzola.org/) is a super-fast app for generating the static website (used for this site). There are several, nice-looking theme
 - [mdBook](https://rust-lang.github.io/mdBook/) is my go-to way of generating documentation. Theme is very readable and setup is reasonably fast.
+- [pier](https://github.com/pier-cli/pier) serves as a database for your one-liners. For example, I have a Haskell script to toggle between
+a dark and light theme that is run with `pier run change-theme`.
 
 ## Awesome tools that I no longer use
 
