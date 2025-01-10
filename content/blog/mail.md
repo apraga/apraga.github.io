@@ -12,7 +12,7 @@ Today, we will see how to read and mails locally inside a terminal. My process u
 
 The command to keep everyone in sync and happy:
 ```bash
-afew -am ; mbsync -a ; notmuch new
+mbsync -a ; notmuch new ; afew --new --tag ; afew --new --move ;
 ```
 *Updated on: 2024-11-11*
 
@@ -69,7 +69,7 @@ set sendmail = "msmtp"
 set nm_default_url = "notmuch:///home/alex/mail"
 set virtual_spoolfile=yes                          # enable virtual folders
 virtual-mailboxes \
-    "INBOX"     "notmuch://?query=tag:inbox"\
+    "INBOX"     "notmuch://?query=tag:new"\
     "Archives"     "notmuch://?query=tag:archive"\
     "Unread"    "notmuch://?query=tag:unread"\
     "Starred"   "notmuch://?query=tag:*"\
@@ -150,24 +150,21 @@ echo "this is some content2" | msmtp -a infomaniak -- $EMAIL
 `notmuch` will not rename or move files around. `afew` offers an easy way to do that. I use the default filters and I move files accordingly.
 
 ```
+
 # This is the default filter chain
 [SpamFilter]
 [KillThreadsFilter]
 [ListMailsFilter]
 [ArchiveSentMailsFilter]
-[InboxFilter] # replace new by inbox
-
-[Filter.1] # remove inbox tag for archived
-query = 'tag:archive AND tag:inbox'
-tags = -inbox
-message = 'Remove inbox tag for archived mails'
+# all message not spam and not 'killed' are in inbox. # We don't want that
+# [InboxFilter]
 
 [MailMover]
-folders = INBOX Archives Trash
+folders = INBOX Archives
 rename = True
 
 # rules
+# Assume afew is run with --new
 INBOX = 'tag:deleted':Trash 'tag:archive':Archives
 Archives = 'tag:deleted':Trash
-Trash = 'NOT tag:deleted AND tag:inbox':INBOX 'NOT tag:deleted AND tag:archive':Archives
 ```
