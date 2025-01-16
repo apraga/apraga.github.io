@@ -4,7 +4,7 @@ date = 2024-02-20
 +++
 
 Here is a curated list of tools that I cannot live without, after many
-iterations (last update is September, 16th 2024). Working on Linux and Windows,
+iterations (last update is January, 15th 2025). Working on Linux and Windows,
 I try to use cross-platforms tools.
 
 ## Must-have
@@ -18,7 +18,6 @@ has been added :)
 - *Move around quickly* with [zoxide](https://github.com/ajeetdsouza/zoxide). It
 allows you to jump quickly to a directory with `z boo` (instead of `cd
 home/user/misc/books`). A must have.
-- *Manage tasks* with [taskwarrior](https://taskwarrior.org/) for non Org-mode users. More on that in a future post.
 - *Write papers and report* with [typst](https://typst.app/). More on that in a future post.
 - [ripgrep](https://github.com/BurntSushi/ripgrep) is a modern `grep` but cross-platform and faster.
 - for the *terminal*, I use [wezterm](https://wezfurlong.org/wezterm/index.html), also available on Windows.
@@ -40,8 +39,9 @@ a dark and light theme that is run with `pier run change-theme`.
 ## Awesome tools that I no longer use
 
 These may be of interest to other people but these are been superseded in my
-workflow. Replacement of `find`, `ls` and `bat` in Rust are really cool but in
-practice, `nushell` is enough for my cases:
+workflow.
+- *Manage tasks* with [taskwarrior](https://taskwarrior.org/) for non Org-mode users. More on that in a future post.
+- Replacement of `find`, `ls` and `bat` in Rust are really cool but in practice, `nushell` is enough for my cases:
   - [fd](https://github.com/sharkdp/fd) has an easier syntax than `find` (written in Rust). For example, convert all org files to markdown with ` fd -e md -x pandoc {} -o {.}.md`.)
   - [sd](https://github.com/chmln/sd) also offers a simpler way to replace text  with `sd`. Example: replace `title:` by `title =` : ` sd 'title:' 'title = '`
   - [eza](https://github.com/eza-community/eza) can replace `ls`

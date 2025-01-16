@@ -12,7 +12,7 @@ Today, we will see how to read and mails locally inside a terminal. My process u
 
 The command to keep everyone in sync and happy:
 ```bash
-mbsync -a ; notmuch new ; afew --new --tag ; afew --new --move ;
+mbsync -a ; notmuch new ; afew --new --tag ; afew --new --move
 ```
 *Updated on: 2024-11-11*
 
@@ -156,8 +156,15 @@ echo "this is some content2" | msmtp -a infomaniak -- $EMAIL
 [KillThreadsFilter]
 [ListMailsFilter]
 [ArchiveSentMailsFilter]
-# all message not spam and not 'killed' are in inbox. # We don't want that
+
+# Disable default behavior (all message not spam and not 'killed' have the inbox tag)
 # [InboxFilter]
+
+# Assume afew is run with --new
+[Filter.1]
+message = 'Remove new tag for archived and trashed mail'
+query = folder:Archives OR tag:archive OR folder:Trash or tag:deleted
+tags = -new;+archive
 
 [MailMover]
 folders = INBOX Archives
