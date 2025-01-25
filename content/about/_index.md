@@ -8,14 +8,13 @@ lang = 'en'
 
 # Publications
 
--   [Labalette, V., Praga, A., Girard, F., Meireles, M., Hallez, Y., &
-    Morris, J. F. (2021). Shear-induced glass-to-crystal transition in
-    anisotropic clay-like suspensions. Soft Matter, 17(11),
-    3174-3190.](https://doi.org/10.1039/D0SM02081H)
+-   [A. Praga, T.Z. Hirsch, D. Vidaud et al. (2025). Hepatoblastoma in a patient with
+    neurofibromatosis type 1: A case report, Cancer Genetics](https://doi.org/10.1016/j.cancergen.2025.01.005)
+-   [Labalette, V., Praga, A., Girard, et al. (2021). Shear-induced glass-to-crystal transition in
+    anisotropic clay-like suspensions. Soft Matter](https://doi.org/10.1039/D0SM02081H)
 -   [Praga, A., Cariolle, D., & Giraud, L. (2015). Pangolin v1. 0, a
     conservative 2-D advection model towards large-scale parallel
-    calculation. Geoscientific Model Development, 8(2),
-    205-220.](https://doi.org/10.5194/gmd-8-205-2015))
+    calculation. Geoscientific Model Development](https://doi.org/10.5194/gmd-8-205-2015))
 
 # Talks
 
