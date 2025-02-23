@@ -10,11 +10,9 @@ Today, we will see how to read and mails locally inside a terminal. My process u
 3. use an email client (`neomutt`), with `msmtp` for sending mail
 4. move mails according to the tags (`afew`)
 
-The command to keep everyone in sync and happy:
-```bash
-mbsync -a ; notmuch new ; afew --new --tag ; afew --new --move
-```
-*Updated on: 2024-11-11*
+Once everything is setup, you will only need to run `notmuch new`.
+
+*Updated on: 2025-02-20*
 
 ## Synchronize mail locally (mbsync)
 
@@ -175,3 +173,18 @@ rename = True
 INBOX = 'tag:deleted':Trash 'tag:archive':Archives
 Archives = 'tag:deleted':Trash
 ```
+
+## Putting everything together
+Create `~/mail/.notmuch/hooks/pre-new` with
+```
+#!/bin/sh
+mbsync -a
+```
+Create `~/mail/.notmuch/hooks/post-new` with
+
+```
+#!/bin/sh
+afew --new --tag 
+afew --new --move
+```
+Make both files executables with `chmod +x`. Then `notmuch new` will sync first, add tags and use `afew` for cleanup !
