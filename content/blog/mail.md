@@ -1,13 +1,13 @@
 +++
-title = "Command-line mail"
+title = "Mail with notmuch"
 date = 2020-10-01
 +++
 
-Today, we will see how to read and mails locally inside a terminal. My process use 5 tools (!) but allows for a very fast search with `notmuch`:
+Today, we will see how to read and mails locally for fast search. Using the powerful `notmuch`, a local database will be created. By default, `notmuch` do not move or remove mails but just operate on tags. 5 steps are needed:
 
 1. synchronize mail locally (`mbsync`)
 2. index and tag mail (`notmuch`)
-3. use an email client (`neomutt`), with `msmtp` for sending mail
+3. use an email client (emacs interface to `notmuch`), with `msmtp` for sending mail
 4. move mails according to the tags (`afew`)
 
 Once everything is setup, you will only need to run `notmuch new`.
@@ -51,68 +51,27 @@ For faster search, we create a local database for mails. This adds another layer
 notmuch init
 ```
 
-## Use an email client (`neomutt`)
+## Use an email client (`notmuch-emacs`)
 
-Configuration is not straightforward with notmuch: it requires virtual-mailbox instead for directories. Here is my `~/.config/neomutt/neomuttrc`:
+with `doom-emacs`, enable the `notmuch` interface in `~/.config/doom.d/init.el`
+```lisp
+       :email
+       notmuch
+```
+ 
+Some setup is required for inbox: I want mails tagged as "new" only.
+Then archiving and deleting should remove the appropriate tags (note: afew should)
+Deleting is done either with `d` (adds `+deleted`) or `SPC m d` (call `+notmuch-delete-tags` defined below).
 
-```mutt
-#---- Mail setup ----
-set from = "$EMAILdev"
-set realname = "Alexis Praga"
-set mbox_type = Maildir # an we avoid that ?
-set folder = "~/mail"
-set sendmail = "msmtp"
+```lisp
+;; Mail settings
+(after! notmuch
+  (setq +notmuch-sync-backend "notmuch new"
+        +notmuch-delete-tags '("+deleted" "-inbox" "-new" "-unread")
+        +notmuch-home-function (lambda () (notmuch-search "tag:new"))
+        notmuch-archive-tags '("+archive" "-inbox" "-new" "-unread")))
 
-# notmuch
-set nm_default_url = "notmuch:///home/alex/mail"
-set virtual_spoolfile=yes                          # enable virtual folders
-virtual-mailboxes \
-    "INBOX"     "notmuch://?query=tag:new"\
-    "Archives"     "notmuch://?query=tag:archive"\
-    "Unread"    "notmuch://?query=tag:unread"\
-    "Starred"   "notmuch://?query=tag:*"\
-    "Sent"      "notmuch://?query=tag:sent"        # sets up queries for virtual folders
-# notmuch bindings
-macro index s "<vfolder-from-query>"              # looks up a hand made query
-macro index a "<modify-labels>+archive -unread -inbox<enter>"        # tag as Archived
-bind index g noop
-bind pager g noop
-macro index,pager gi      "<change-vfolder>!<enter>"                  "Go to Inbox"
-macro index,pager ga      "<change-vfolder>Archives<enter>"                  "Go to Inbox"
-macro index,pager gs      "<change-vfolder>Sent<enter>"                  "Go to Inbox"
-macro index d "<modify-labels-then-hide>-inbox -unread +deleted<enter>" # tag as Junk mail
-macro index + "<modify-labels>+*<enter><sync-mailbox>"               # tag as starred
-macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
-macro index - "<modify-labels>-*<enter><sync-mailbox>"               # tag as unstarred
-
-# Adress completion
-set query_command = "notmuch address %s"
-set query_format = "%5c %t %a %n %?e?(%e)?"
-bind editor <Tab> complete-query
-
-# mailbox settings
-set spoolfile = +INBOX
-set postponed = +Drafts
-set record = +Sent
-set trash = +Trash
-
-# cache settings
-set header_cache = "~/.cache/mutt/infomaniak/header_cache"
-set message_cachedir = "~/.cache/mutt/infomaniak/message_cache"
-
-# synchronization settings ['s' to sync]
-macro index S "<shell-escape>mbsync -a<enter>" "sync email"
-
-#---- Esthetic setup ----
-# set sidebar_visible = yes
-
-# Better sort
-set sort = 'threads'
-set sort_aux = 'reverse-date-received'
-
-# view html automatically
-auto_view text/html
-alternative_order text/plain text/enriched text/html
+(setq sendmail-program "/usr/bin/msmtp" )
 ```
 
 ### `msmtp` for sending mail
