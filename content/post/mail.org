@@ -1,0 +1,185 @@
+#+title: Mail with notmuch
+#+title: Mail in the command-line
+#+date: 2020-10-01
+
+Today, we will see how to read and mails locally for fast search. Using
+the powerful =notmuch=, a local database will be created. By default,
+=notmuch= do not move or remove mails but just operate on tags. 5 steps
+are needed:
+
+1. synchronize mail locally (=mbsync=)
+2. index and tag mail (=notmuch=)
+3. use an email client (emacs interface to =notmuch=), with =msmtp= for
+   sending mail
+4. move mails according to the tags (=afew=)
+
+Once everything is setup, you will only need to run =notmuch new=.
+
+/Updated on: 2025-02-20/
+
+** Synchronize mail locally (mbsync)
+:PROPERTIES:
+:CUSTOM_ID: synchronize-mail-locally-mbsync
+:END:
+Mbsync setup with an Infomaniak email account with the following
+=~/.mbsyncrc=. The list of folders is hardcoded in =Patterns=:
+
+#+begin_src sh
+IMAPAccount infomaniak
+Host mail.infomaniak.com
+Port 993
+User $USER
+Pass  $PASS
+SSLType IMAPS
+
+IMAPStore info-remote
+Account infomaniak
+
+MaildirStore info-local
+Path ~/mail/
+Inbox ~/mail/INBOX/
+Subfolders Verbatim
+
+Channel info
+Far :info-remote:
+Near :info-local:
+Patterns INBOX Archives Drafts Sent Spam Trash
+Create Both
+Expunge Both
+SyncState *
+#+end_src
+
+Try it with =mbsync -a=.
+
+** Index and tag mail (=notmuch=)
+:PROPERTIES:
+:CUSTOM_ID: index-and-tag-mail-notmuch
+:END:
+For faster search, we create a local database for mails. This adds
+another layer on our stack as we will need to synchronize the database
+with locat files. =notmuch= do not delete files ! Configuration is
+simple:
+
+#+begin_src sh
+notmuch init
+#+end_src
+
+** Use an email client (=notmuch-emacs=)
+:PROPERTIES:
+:CUSTOM_ID: use-an-email-client-notmuch-emacs
+:END:
+with =doom-emacs=, enable the =notmuch= interface in
+=~/.config/doom.d/init.el=
+
+#+begin_src lisp
+       :email
+       notmuch
+#+end_src
+
+Some setup is required for inbox: I want mails tagged as "new" only.
+Then archiving and deleting should remove the appropriate tags (note:
+afew should) Deleting is done either with =d= (adds =+deleted=) or
+=SPC m d= (call =+notmuch-delete-tags= defined below).
+
+#+begin_src lisp
+;; Mail settings
+(after! notmuch
+  (setq +notmuch-sync-backend "notmuch new"
+        +notmuch-delete-tags '("+deleted" "-inbox" "-new" "-unread")
+        +notmuch-home-function (lambda () (notmuch-search "tag:new"))
+        notmuch-archive-tags '("+archive" "-inbox" "-new" "-unread")))
+
+(setq sendmail-program "/usr/bin/msmtp" )
+#+end_src
+
+*** =msmtp= for sending mail
+:PROPERTIES:
+:CUSTOM_ID: msmtp-for-sending-mail
+:END:
+A simple version with password stored in plain text: ~/.msmtprc
+
+#+begin_example
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.msmtp.log
+
+account        infomaniak
+host           mail.infomaniak.com
+port           465
+tls_starttls   off
+from           $EMAIL
+user           $EMAIL
+password       $PASS
+
+account default: infomaniak
+#+end_example
+
+Change permissions
+
+#+begin_src sh
+$ chmod 600 ~/.msmtprc
+#+end_src
+
+Test it with :
+
+#+begin_src sh
+echo "this is some content2" | msmtp -a infomaniak -- $EMAIL
+#+end_src
+
+** Move mails according to the tags (=afew=)
+:PROPERTIES:
+:CUSTOM_ID: move-mails-according-to-the-tags-afew
+:END:
+=notmuch= will not rename or move files around. =afew= offers an easy
+way to do that. I use the default filters and I move files accordingly.
+
+#+begin_example
+
+# This is the default filter chain
+[SpamFilter]
+[KillThreadsFilter]
+[ListMailsFilter]
+[ArchiveSentMailsFilter]
+
+# Disable default behavior (all message not spam and not 'killed' have the inbox tag)
+# [InboxFilter]
+
+# Assume afew is run with --new
+[Filter.1]
+message = 'Remove new tag for archived and trashed mail'
+query = folder:Archives OR tag:archive OR folder:Trash or tag:deleted
+tags = -new;+archive
+
+[MailMover]
+folders = INBOX Archives
+rename = True
+
+# rules
+# Assume afew is run with --new
+INBOX = 'tag:deleted':Trash 'tag:archive':Archives
+Archives = 'tag:deleted':Trash
+#+end_example
+
+** Putting everything together
+:PROPERTIES:
+:CUSTOM_ID: putting-everything-together
+:END:
+Create =~/mail/.notmuch/hooks/pre-new= with
+
+#+begin_example
+#!/bin/sh
+mbsync -a
+#+end_example
+
+Create =~/mail/.notmuch/hooks/post-new= with
+
+#+begin_example
+#!/bin/sh
+afew --new --tag 
+afew --new --move
+#+end_example
+
+Make both files executables with =chmod +x=. Then =notmuch new= will
+sync first, add tags and use =afew= for cleanup !
