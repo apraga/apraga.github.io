@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Alexis' blog</title><link>https://alexis.praga.dev/</link><description>Recent content on Alexis' blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://alexis.praga.dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Life in Emacs (revisited)</title><link>https://alexis.praga.dev/p/life-in-emacs-revisited/</link><pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/p/life-in-emacs-revisited/</guid><description>
+&lt;p>
+Here is a small summary from my journey from vim to using Emacs for
+(almost) everything. After using ViM for a few years, I wanted to try
+Emacs. There are 3 different approaches to get into emacs.&lt;/p>
+&lt;ol>
+&lt;li>Create your config from scratch. This is the hard way !&lt;/li>
+&lt;li>Use a starter kit. There are numerous: &lt;a href="https://github.com/purcell/emacs.d">purcell&amp;#39;s&lt;/a> or more minimalist like &lt;a href="https://github.com/SystemCrafters/crafted-emacs">SystemCrafters&lt;/a>, &lt;a href="https://sr.ht/~ashton314/emacs-bedrock/">emacs-bedrock&lt;/a>&lt;/li>
+&lt;li>Use a distribution : &lt;a href="https://www.spacemacs.org/">Spacemacs&lt;/a> &lt;a href="https://github.com/doomemacs/doomemacs">Doom emacs&lt;/a> are the most popular for evil users&lt;/li>
+&lt;/ol>
+&lt;p>My advice is to &lt;strong>start with Doom-Emacs&lt;/strong> as all the work is done for you ! It also shows what Emacs can do and it&amp;#39;s not limited to editing text. I am now building my own configuration based on &lt;a href="https://github.com/jamescherti/minimal-emacs.d">minimal-emacs&lt;/a> but learned a lot after using Doom-Emacs for more than 2 years.&lt;/p>
+&lt;p>
+This post is a complete rewrite of an older one. Instead of listing nice packages, I would like to give a taste on how Emacs can change the way you work.&lt;/p>
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
+Happy camping in emacs
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;p>
+Emacs really shines as a consistent framework. In other words, the more you use Emacs for various tasks, the more it makes sense. On the other hand, if you start to use other software, it may lose much of its interest. Having said that, I did use only Emacs for org-mode during my PhD…&lt;/p>
+&lt;p>
+I use it to manage tasks with &lt;a href="https://orgmode.org/">org-mode&lt;/a>, write code &lt;a href="https://www.gnu.org/software/emacs/manual/html_mono/eglot.html">using lsp&lt;/a>, move files around with &lt;a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html">dired&lt;/a>, use it like a &amp;#34;second brain&amp;#34; with &lt;a href="https://www.orgroam.com/">org-roam&lt;/a>, annotate papers with &lt;a href="https://github.com/emacs-citar/citar">citar&lt;/a> and read mail with &lt;a href="https://notmuchmail.org/notmuch-emacs/">not-much&lt;/a>. With this setup, most of my time is spent inside emacs but drop to the shell from time to time, mostly to use jj. For git users, &lt;a href="https://magit.vc/">magit&lt;/a> is a superb wrapper aroud git.&lt;/p>
+&lt;p>
+If you are okay living in text-only buffers and commit to this approach, digging into Emacs may blow your mind. For example, you can get the results of a &lt;code class="verbatim">grep&lt;/code> command into a buffer and editing the buffer &lt;a href="https://github.com/mhayashi1120/Emacs-wgrep">will replace the file contents at once&lt;/a> ! Listing directory content can also be edited in a buffer, allow to &lt;a href="https://www.masteringemacs.org/article/wdired-editable-dired-buffers">mass rename files&lt;/a>. This can of course be done in other file managers, like &lt;a href="https://github.com/sxyazi/yazi">yazi&lt;/a>, a powerful newcomer in this field. But emacs makes it integrated to the rest of your worklow.&lt;/p>
+&lt;p>
+What recently blew my mind was a package called &lt;a href="https://github.com/oantolin/embark">embark&lt;/a>. What it does looks boring or not really clear from the project description. But, combind with a completion UI like &lt;a href="https://github.com/minad/vertico">vertico&lt;/a>, you can apply &amp;#34;combos&amp;#34; on your actions. Let me give you a single example. My notes are managed with org-roam and tagged according to their content. To created a note listing all files with the tag &lt;em>genetics&lt;/em>, I can extract all matching results from the minibuffer into my new file and get their links ! If that seems a bit abstract, I highly recommand taking the time to read &lt;a href="https://karthinks.com/software/fifteen-ways-to-use-embark/">Karthinks post&lt;/a> about it. It has a lot of examples easy to follow.&lt;/p>
+&lt;p>
+Finally, I will not advertise org-mode. &lt;a href="https://www.reddit.com/r/orgmode/comments/17zzwsy/comment/ka41i47/">Others have done it before much better than I could&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-2" class="outline-2">
+&lt;h2 id="headline-2">
+Taking a scroll outside emacs
+&lt;/h2>
+&lt;div id="outline-text-headline-2" class="outline-text-2">
+&lt;p>
+Can you go too far using Emacs ? Some use it as &lt;a href="https://github.com/emacs-exwm/exwm">their window manager&lt;/a>. For me, you have to be okay with the &amp;#34;text-only&amp;#34; approach. For example, if you take notes, formatting will not look as nice as using a GUI. On Windows, I struggled to make Doom emacs work. People recommend to use WSL to run Emacs but it&amp;#39;s not the more practical way. I chose to drop emacs, use Emacs 30 with native-compilation and a minimal starter kit. Performance is okay, unless for actions involving I/O, like mass-renaming files.&lt;/p>
+&lt;p>
+I still use the terminal, with &lt;code class="verbatim">jj&lt;/code> and &lt;code class="verbatim">nushell&lt;/code>. Emacs has its own shell shell called &lt;a href="https://www.masteringemacs.org/article/complete-guide-mastering-eshell">eshell&lt;/a> but got bitten by bad performances in the past. It may need to be revisited though.&lt;/p>
+&lt;p>
+Finally, for inspiration, &lt;a href="https://github.com/emacs-tw/awesome-emacs">awesome-emacs&lt;/a> is
+a curated list of plugins by the community.&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Manage mailing lists with public-inbox</title><link>https://alexis.praga.dev/p/manage-mailing-lists-with-public-inbox/</link><pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/p/manage-mailing-lists-with-public-inbox/</guid><description>&lt;p>
+I recently subscribed to &lt;code class="verbatim">guix-devel&lt;/code>, a rather high-volume mailing
+lists. Even though you could manage such volume by hand,
+&lt;a href="https://public-inbox.org/">public-inbox&lt;/a> is an alternate way to deal
+with that.&lt;/p>
+&lt;p>
+The idea is not to subscribe to the mailing list, but rather to use git
+as an interface, thus bypassing the email provider. It fits &lt;code class="verbatim">notmuch&lt;/code>
+paradigm rather well with
+&lt;a href="https://github.com/wkz/notmuch-lore">notmuch-lore&lt;/a> as an interface.
+Building on &lt;a href="../mail">our mail config&lt;/a>, we only need to&lt;/p>
+&lt;ol>
+&lt;li>setup the link to the public-inbox for the mailing list in
+&lt;code class="verbatim">~/mail/.notmuch/.lore/sources&lt;/code> (there should be no slash at the end
+of the URL)&lt;/li>
+&lt;/ol>
+&lt;pre class="example">
+[guix-devel]
+url=https://yhetil.org/guix-devel
+&lt;/pre>
+&lt;ol>
+&lt;li value="2">clone &lt;a href="https://github.com/wkz/notmuch-lore">https://github.com/wkz/notmuch-lore&lt;/a> locally, for example&lt;/li>
+&lt;/ol>
+&lt;pre class="example">
+git clone https://github.com/wkz/notmuch-lore ~/mail/.notmuch/hooks/notmuch-lore
+chmod +x ~/mail/.notmuch/hooks/notmuch-lore/pre-new
+&lt;/pre>
+&lt;p>
+and add it to &lt;code class="verbatim">~/mail/.notmuch/hooks/pre-new&lt;/code>&lt;/p>
+&lt;pre class="example">
+#!/bin/sh
+mbsync -a
+/home/alex/mail/.notmuch/hooks/notmuch-lore/pre-new
+&lt;/pre>
+&lt;p>
+Then &lt;code class="verbatim">notmuch new&lt;/code> will create a local maildir mirroring the mailing
+list. The only drawback is the mailing list will only be downloaded
+locally. So webmail users will need to get to the mailing list public
+URL themselves.&lt;/p></description></item><item><title>Command-line utilities</title><link>https://alexis.praga.dev/p/command-line-utilities/</link><pubDate>Tue, 20 Feb 2024 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/p/command-line-utilities/</guid><description>
+&lt;p>
+Here is a curated list of tools that I cannot live without, after many
+iterations (last update is January, 15th 2025). Working on Linux and
+Windows, I try to use cross-platforms tools.&lt;/p>
+&lt;div id="outline-container-headline-1" class="outline-2">
+&lt;h2 id="headline-1">
+Must-have
+&lt;/h2>
+&lt;div id="outline-text-headline-1" class="outline-text-2">
+&lt;ul>
+&lt;li>&lt;a href="https://www.nushell.sh/">nushell&lt;/a> is my shell. &lt;a href="https://fishshell.com/docs/current/tutorial.html">fish&lt;/a> is nice but if you want to lose POSIX compatibility, you should go all the way and embrace a new workflow. It considers all data as table, allowing for powerful manipulation. It makes shell scripting &lt;em>fun&lt;/em> by staying is a single language. Also, pandas support has been added :)&lt;/li>
+&lt;li>&lt;a href="https://github.com/ajeetdsouza/zoxide">zoxide&lt;/a> is fantastic for moving around quickly in the shell. For example, &lt;code class="verbatim">z boo&lt;/code> jumps to &lt;code>book&lt;/code>, instead of typing &lt;code class="verbatim">cd home/user/misc/books&lt;/code>. A must have.&lt;/li>
+&lt;li>&lt;a href="https://typst.app/">typst&lt;/a> for writing papers and reports. More on that in a future post.&lt;/li>
+&lt;li>&lt;a href="https://github.com/BurntSushi/ripgrep">ripgrep&lt;/a> is a modern &lt;code class="verbatim">grep&lt;/code> but cross-platform and faster.&lt;/li>
+&lt;li>&lt;a href="https://wezfurlong.org/wezterm/index.html">wezterm&lt;/a> as a terminal, also available on Windows. Alternative are &lt;code class="verbatim">alacrity&lt;/code> (with a terminal multiplexer like &lt;code class="verbatim">zellij&lt;/code> or &lt;code class="verbatim">tmux&lt;/code>) or &lt;code class="verbatim">kitty&lt;/code> (not available on Windows) that have built-in tabs and windows&lt;/li>
+&lt;li>&lt;a href="https://martinvonz.github.io/jj/latest/">jj&lt;/a> has replaced &lt;code class="verbatim">git&lt;/code> in my workflow (jj is compatible with git though). But there are nice TUI interfaces with git worth mentioning : &lt;code class="verbatim">lazygit&lt;/code> &lt;sup class="footnote-reference">&lt;a id="footnote-reference-1" href="#footnote-1">1&lt;/a>&lt;/sup>&lt;/li>
+&lt;li>&lt;a href="https://atuin.sh/">atuin&lt;/a> to search shell history &lt;/li>
+&lt;li>&lt;a href="https://www.chezmoi.io/quick-start/">chezmoi&lt;/a> to manage dotfiles &lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-2" class="outline-2">
+&lt;h2 id="headline-2">
+For the occasional use
+&lt;/h2>
+&lt;div id="outline-text-headline-2" class="outline-text-2">
+&lt;ul>
+&lt;li>&lt;a href="https://gohugo.io/">hugo&lt;/a> for this blog. Contrary to &lt;a href="https://www.getzola.org/">zola&lt;/a>, it supports org-mode.&lt;/li>
+&lt;li>&lt;a href="https://rust-lang.github.io/mdBook/">mdBook&lt;/a> is my go-to way of generating documentation. Theme is very readable and setup is reasonably fast.&lt;/li>
+&lt;li>&lt;a href="https://github.com/pier-cli/pier">pier&lt;/a> serves as a database for your one-liners. For example, I have a Haskell script to toggle between a dark and light theme that is run with
+&lt;code class="verbatim">pier run change-theme&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-3" class="outline-2">
+&lt;h2 id="headline-3">
+Awesome tools that I no longer use
+&lt;/h2>
+&lt;div id="outline-text-headline-3" class="outline-text-2">
+&lt;p>These may be of interest to other people but these are been superseded
+in my workflow.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://taskwarrior.org/">taskwarrior&lt;/a> to manage tasks for non Org-mode users. More on that in a future post.&lt;/li>
+&lt;li>
+&lt;p>Replacement of &lt;code class="verbatim">find&lt;/code>, &lt;code class="verbatim">ls&lt;/code> and &lt;code class="verbatim">bat&lt;/code> in Rust are really cool but in practice, &lt;code>nushell&lt;/code> is enough for my cases:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/sharkdp/fd">fd&lt;/a> has an easier syntax than &lt;code class="verbatim">find&lt;/code> (written in Rust). For example, convert all org files to markdown with&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="src src-bash">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">fd -e md -x pandoc &lt;span class="o">{}&lt;/span> -o &lt;span class="o">{&lt;/span>.&lt;span class="o">}&lt;/span>.md&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/chmln/sd">sd&lt;/a> also offers a simpler way to replace text with &lt;code class="verbatim">sd&lt;/code>. Example: replace &lt;code class="verbatim">title:&lt;/code> by &lt;code class="verbatim">title =&lt;/code> :&lt;/li>
+&lt;/ul>
+&lt;div class="src src-bash">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> sd &lt;span class="s1">&amp;#39;title:&amp;#39;&lt;/span> &lt;span class="s1">&amp;#39;title = &amp;#39;&lt;/span>&lt;span class="o">=&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/eza-community/eza">eza&lt;/a> can replace &lt;code class="verbatim">ls&lt;/code>&lt;/li>
+&lt;li>&lt;a href="sttps://github.com/sharkdp/bat">bat&lt;/a> is more colorful that &lt;code class="verbatim">cat&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-headline-4" class="outline-2">
+&lt;h2 id="headline-4">
+Inspiration
+&lt;/h2>
+&lt;div id="outline-text-headline-4" class="outline-text-2">
+&lt;p>Several ideas came from
+&lt;a href="https://github.com/agarrharr/awesome-cli-apps?tab=readme-ov-file">awesome
+cli apps list on github&lt;/a>. See also
+&lt;a href="https://github.com/sts10/rust-command-line-utilities?tab=readme-ov-file">other
+tools written in Rust&lt;/a>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div class="footnotes">
+&lt;hr class="footnotes-separatator">
+&lt;div class="footnote-definitions">
+&lt;div class="footnote-definition">
+&lt;sup id="footnote-1">&lt;a href="#footnote-reference-1">1&lt;/a>&lt;/sup>
+&lt;div class="footnote-body">
+&lt;p>Or &lt;code class="verbatim">gitui&lt;/code> but
+&lt;a href="https://github.com/extrawurst/gitui/issues/2158">this issue&lt;/a>
+is troublesome.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div></description></item><item><title>About me</title><link>https://alexis.praga.dev/about-me/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/about-me/</guid><description>&lt;h1 id="publications">Publications
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://doi.org/10.1016/j.cancergen.2025.01.005" target="_blank" rel="noopener"
+>A. Praga, T.Z. Hirsch, D. Vidaud et al. (2025). Hepatoblastoma in a patient with neurofibromatosis type 1: A case report, Cancer Genetics&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://doi.org/10.1039/D0SM02081H" target="_blank" rel="noopener"
+>Labalette, V., Praga, A., Girard, F., Meireles, M., Hallez, Y., &amp;amp; Morris, J. F. (2021). Shear-induced glass-to-crystal transition in anisotropic clay-like suspensions. Soft Matter, 17(11), 3174-3190.&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://doi.org/10.5194/gmd-8-205-2015" target="_blank" rel="noopener"
+>Praga, A., Cariolle, D., &amp;amp; Giraud, L. (2015). Pangolin v1. 0, a conservative 2-D advection model towards large-scale parallel calculation. Geoscientific Model Development, 8(2), 205-220.&lt;/a>)&lt;/li>
+&lt;/ul>
+&lt;h1 id="talks">Talks
+&lt;/h1>&lt;ul>
+&lt;li>FOSDEM 2024, lighthing talk : &lt;a class="link" href="https://alexis.praga.dev/slides/fosdem2024" >slides&lt;/a>, &lt;a class="link" href="https://fosdem.org/2024/schedule/event/fosdem-2024-3058-nix-for-genetics-powering-a-bioinformatics-pipeline/" target="_blank" rel="noopener"
+>official website&lt;/a>&lt;/li>
+&lt;li>JCADD2 024, 15min : &lt;a class="link" href="https://www.canal-u.tv/sites/default/files/medias/fichiers/2024/12/PRESENTATION_Un_Pipeline_Reproductible_Pour_PRAGA_ALEXIS_last.pdf" target="_blank" rel="noopener"
+>slides&lt;/a>, &lt;a class="link" href="https://www.canal-u.tv/chaines/jcad/un-pipeline-reproductible-pour-la-reanalyse-de-donnees-d-exome-en-genetique" target="_blank" rel="noopener"
+>talk&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="others">Others
+&lt;/h1>&lt;ul>
+&lt;li>PhD manuscript: Alexis Praga. &lt;a class="link" href="https://hal.inria.fr/tel-01178394/" target="_blank" rel="noopener"
+>A large-scale atmospheric chemistry-transport model for massively parallel architectures. Computer Science [cs]. Université Toulouse III - Paul Sabatier, 2015. English. ⟨NNT : ⟩. ⟨tel-01178394⟩&lt;/a>&lt;/li>
+&lt;li>Medical thesis
+&lt;ul>
+&lt;li>manuscript : &lt;a class="link" href="https://dumas.ccsd.cnrs.fr/MEM-UNIV-UFC/dumas-04552659v1" target="_blank" rel="noopener"
+>Alexis Praga. Un pipeline bioinformatique de ré-interprétation d’analyses constitutionnelles d’exome. Médecine humaine et pathologie. 2024. ⟨dumas-04552659⟩&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://alexis.praga.dev/slides/bisonex" >slides&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>Archives</title><link>https://alexis.praga.dev/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/archives/</guid><description/></item><item><title>Mail with notmuch</title><link>https://alexis.praga.dev/p/mail-with-notmuch/</link><pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/p/mail-with-notmuch/</guid><description>
+&lt;p>
+Today, we will see how to read and mails locally for fast search. Using
+the powerful &lt;code class="verbatim">notmuch&lt;/code>, a local database will be created. By default,
+&lt;code class="verbatim">notmuch&lt;/code> do not move or remove mails but just operate on tags. 5 steps
+are needed:&lt;/p>
+&lt;ol>
+&lt;li>synchronize mail locally (&lt;code class="verbatim">mbsync&lt;/code>)&lt;/li>
+&lt;li>index and tag mail (&lt;code class="verbatim">notmuch&lt;/code>)&lt;/li>
+&lt;li>use an email client (emacs interface to &lt;code class="verbatim">notmuch&lt;/code>), with &lt;code class="verbatim">msmtp&lt;/code> for
+sending mail&lt;/li>
+&lt;li>move mails according to the tags (&lt;code class="verbatim">afew&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;p>Once everything is setup, you will only need to run &lt;code class="verbatim">notmuch new&lt;/code>.&lt;/p>
+&lt;p>
+&lt;em>Updated on: 2025-02-20&lt;/em>&lt;/p>
+&lt;div id="outline-container-synchronize-mail-locally-mbsync" class="outline-3">
+&lt;h3 id="synchronize-mail-locally-mbsync">
+Synchronize mail locally (mbsync)
+&lt;/h3>
+&lt;div id="outline-text-synchronize-mail-locally-mbsync" class="outline-text-3">
+&lt;p>Mbsync setup with an Infomaniak email account with the following
+&lt;code class="verbatim">~/.mbsyncrc&lt;/code>. The list of folders is hardcoded in &lt;code class="verbatim">Patterns&lt;/code>:&lt;/p>
+&lt;div class="src src-sh">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">IMAPAccount infomaniak
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host mail.infomaniak.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">993&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">User &lt;span class="nv">$USER&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Pass &lt;span class="nv">$PASS&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SSLType IMAPS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">IMAPStore info-remote
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Account infomaniak
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">MaildirStore info-local
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Path ~/mail/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Inbox ~/mail/INBOX/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Subfolders Verbatim
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Channel info
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Far :info-remote:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Near :info-local:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Patterns INBOX Archives Drafts Sent Spam Trash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Create Both
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Expunge Both
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SyncState *&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>
+Try it with &lt;code class="verbatim">mbsync -a&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-index-and-tag-mail-notmuch" class="outline-3">
+&lt;h3 id="index-and-tag-mail-notmuch">
+Index and tag mail (&lt;code class="verbatim">notmuch&lt;/code>)
+&lt;/h3>
+&lt;div id="outline-text-index-and-tag-mail-notmuch" class="outline-text-3">
+&lt;p>For faster search, we create a local database for mails. This adds
+another layer on our stack as we will need to synchronize the database
+with locat files. &lt;code class="verbatim">notmuch&lt;/code> do not delete files ! Configuration is
+simple:&lt;/p>
+&lt;div class="src src-sh">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">notmuch init&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-use-an-email-client-notmuch-emacs" class="outline-3">
+&lt;h3 id="use-an-email-client-notmuch-emacs">
+Use an email client (&lt;code class="verbatim">notmuch-emacs&lt;/code>)
+&lt;/h3>
+&lt;div id="outline-text-use-an-email-client-notmuch-emacs" class="outline-text-3">
+&lt;p>with &lt;code class="verbatim">doom-emacs&lt;/code>, enable the &lt;code class="verbatim">notmuch&lt;/code> interface in
+&lt;code class="verbatim">~/.config/doom.d/init.el&lt;/code>&lt;/p>
+&lt;div class="src src-lisp">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lisp" data-lang="lisp">&lt;span class="line">&lt;span class="cl"> &lt;span class="ss">:email&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">notmuch&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>
+Some setup is required for inbox: I want mails tagged as &amp;#34;new&amp;#34; only.
+Then archiving and deleting should remove the appropriate tags (note:
+afew should) Deleting is done either with &lt;code class="verbatim">d&lt;/code> (adds &lt;code class="verbatim">+deleted&lt;/code>) or
+&lt;code class="verbatim">SPC m d&lt;/code> (call &lt;code class="verbatim">+notmuch-delete-tags&lt;/code> defined below).&lt;/p>
+&lt;div class="src src-lisp">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-lisp" data-lang="lisp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">;; Mail settings&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="nv">after!&lt;/span> &lt;span class="nv">notmuch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="k">setq&lt;/span> &lt;span class="nv">+notmuch-sync-backend&lt;/span> &lt;span class="s">&amp;#34;notmuch new&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">+notmuch-delete-tags&lt;/span> &lt;span class="o">&amp;#39;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;+deleted&amp;#34;&lt;/span> &lt;span class="s">&amp;#34;-inbox&amp;#34;&lt;/span> &lt;span class="s">&amp;#34;-new&amp;#34;&lt;/span> &lt;span class="s">&amp;#34;-unread&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">+notmuch-home-function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nb">lambda&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nv">notmuch-search&lt;/span> &lt;span class="s">&amp;#34;tag:new&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">notmuch-archive-tags&lt;/span> &lt;span class="o">&amp;#39;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;+archive&amp;#34;&lt;/span> &lt;span class="s">&amp;#34;-inbox&amp;#34;&lt;/span> &lt;span class="s">&amp;#34;-new&amp;#34;&lt;/span> &lt;span class="s">&amp;#34;-unread&amp;#34;&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="k">setq&lt;/span> &lt;span class="nv">sendmail-program&lt;/span> &lt;span class="s">&amp;#34;/usr/bin/msmtp&amp;#34;&lt;/span> &lt;span class="p">)&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-msmtp-for-sending-mail" class="outline-4">
+&lt;h4 id="msmtp-for-sending-mail">
+&lt;code class="verbatim">msmtp&lt;/code> for sending mail
+&lt;/h4>
+&lt;div id="outline-text-msmtp-for-sending-mail" class="outline-text-4">
+&lt;p>A simple version with password stored in plain text: ~/.msmtprc&lt;/p>
+&lt;pre class="example">
+defaults
+auth on
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile ~/.msmtp.log
+account infomaniak
+host mail.infomaniak.com
+port 465
+tls_starttls off
+from $EMAIL
+user $EMAIL
+password $PASS
+account default: infomaniak
+&lt;/pre>
+&lt;p>
+Change permissions&lt;/p>
+&lt;div class="src src-sh">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">$ chmod &lt;span class="m">600&lt;/span> ~/.msmtprc&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>
+Test it with :&lt;/p>
+&lt;div class="src src-sh">
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;this is some content2&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> msmtp -a infomaniak -- &lt;span class="nv">$EMAIL&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-move-mails-according-to-the-tags-afew" class="outline-3">
+&lt;h3 id="move-mails-according-to-the-tags-afew">
+Move mails according to the tags (&lt;code class="verbatim">afew&lt;/code>)
+&lt;/h3>
+&lt;div id="outline-text-move-mails-according-to-the-tags-afew" class="outline-text-3">
+&lt;p>&lt;code class="verbatim">notmuch&lt;/code> will not rename or move files around. &lt;code class="verbatim">afew&lt;/code> offers an easy
+way to do that. I use the default filters and I move files accordingly.&lt;/p>
+&lt;pre class="example">
+# This is the default filter chain
+[SpamFilter]
+[KillThreadsFilter]
+[ListMailsFilter]
+[ArchiveSentMailsFilter]
+# Disable default behavior (all message not spam and not &amp;#39;killed&amp;#39; have the inbox tag)
+# [InboxFilter]
+# Assume afew is run with --new
+[Filter.1]
+message = &amp;#39;Remove new tag for archived and trashed mail&amp;#39;
+query = folder:Archives OR tag:archive OR folder:Trash or tag:deleted
+tags = -new;+archive
+[MailMover]
+folders = INBOX Archives
+rename = True
+# rules
+# Assume afew is run with --new
+INBOX = &amp;#39;tag:deleted&amp;#39;:Trash &amp;#39;tag:archive&amp;#39;:Archives
+Archives = &amp;#39;tag:deleted&amp;#39;:Trash
+&lt;/pre>
+&lt;/div>
+&lt;/div>
+&lt;div id="outline-container-putting-everything-together" class="outline-3">
+&lt;h3 id="putting-everything-together">
+Putting everything together
+&lt;/h3>
+&lt;div id="outline-text-putting-everything-together" class="outline-text-3">
+&lt;p>Create &lt;code class="verbatim">~/mail/.notmuch/hooks/pre-new&lt;/code> with&lt;/p>
+&lt;pre class="example">
+#!/bin/sh
+mbsync -a
+&lt;/pre>
+&lt;p>
+Create &lt;code class="verbatim">~/mail/.notmuch/hooks/post-new&lt;/code> with&lt;/p>
+&lt;pre class="example">
+#!/bin/sh
+afew --new --tag
+afew --new --move
+&lt;/pre>
+&lt;p>
+Make both files executables with &lt;code class="verbatim">chmod +x&lt;/code>. Then &lt;code class="verbatim">notmuch new&lt;/code> will
+sync first, add tags and use &lt;code class="verbatim">afew&lt;/code> for cleanup !&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Search</title><link>https://alexis.praga.dev/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/search/</guid><description/></item></channel></rss>

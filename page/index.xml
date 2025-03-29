@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Alexis' blog</title><link>https://alexis.praga.dev/page/</link><description>Recent content in Pages on Alexis' blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://alexis.praga.dev/page/index.xml" rel="self" type="application/rss+xml"/><item><title>About me</title><link>https://alexis.praga.dev/about-me/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/about-me/</guid><description>&lt;h1 id="publications">Publications
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://doi.org/10.1016/j.cancergen.2025.01.005" target="_blank" rel="noopener"
+>A. Praga, T.Z. Hirsch, D. Vidaud et al. (2025). Hepatoblastoma in a patient with neurofibromatosis type 1: A case report, Cancer Genetics&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://doi.org/10.1039/D0SM02081H" target="_blank" rel="noopener"
+>Labalette, V., Praga, A., Girard, F., Meireles, M., Hallez, Y., &amp;amp; Morris, J. F. (2021). Shear-induced glass-to-crystal transition in anisotropic clay-like suspensions. Soft Matter, 17(11), 3174-3190.&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://doi.org/10.5194/gmd-8-205-2015" target="_blank" rel="noopener"
+>Praga, A., Cariolle, D., &amp;amp; Giraud, L. (2015). Pangolin v1. 0, a conservative 2-D advection model towards large-scale parallel calculation. Geoscientific Model Development, 8(2), 205-220.&lt;/a>)&lt;/li>
+&lt;/ul>
+&lt;h1 id="talks">Talks
+&lt;/h1>&lt;ul>
+&lt;li>FOSDEM 2024, lighthing talk : &lt;a class="link" href="https://alexis.praga.dev/slides/fosdem2024" >slides&lt;/a>, &lt;a class="link" href="https://fosdem.org/2024/schedule/event/fosdem-2024-3058-nix-for-genetics-powering-a-bioinformatics-pipeline/" target="_blank" rel="noopener"
+>official website&lt;/a>&lt;/li>
+&lt;li>JCADD2 024, 15min : &lt;a class="link" href="https://www.canal-u.tv/sites/default/files/medias/fichiers/2024/12/PRESENTATION_Un_Pipeline_Reproductible_Pour_PRAGA_ALEXIS_last.pdf" target="_blank" rel="noopener"
+>slides&lt;/a>, &lt;a class="link" href="https://www.canal-u.tv/chaines/jcad/un-pipeline-reproductible-pour-la-reanalyse-de-donnees-d-exome-en-genetique" target="_blank" rel="noopener"
+>talk&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="others">Others
+&lt;/h1>&lt;ul>
+&lt;li>PhD manuscript: Alexis Praga. &lt;a class="link" href="https://hal.inria.fr/tel-01178394/" target="_blank" rel="noopener"
+>A large-scale atmospheric chemistry-transport model for massively parallel architectures. Computer Science [cs]. Université Toulouse III - Paul Sabatier, 2015. English. ⟨NNT : ⟩. ⟨tel-01178394⟩&lt;/a>&lt;/li>
+&lt;li>Medical thesis
+&lt;ul>
+&lt;li>manuscript : &lt;a class="link" href="https://dumas.ccsd.cnrs.fr/MEM-UNIV-UFC/dumas-04552659v1" target="_blank" rel="noopener"
+>Alexis Praga. Un pipeline bioinformatique de ré-interprétation d’analyses constitutionnelles d’exome. Médecine humaine et pathologie. 2024. ⟨dumas-04552659⟩&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://alexis.praga.dev/slides/bisonex" >slides&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>Archives</title><link>https://alexis.praga.dev/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/archives/</guid><description/></item><item><title>Search</title><link>https://alexis.praga.dev/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://alexis.praga.dev/search/</guid><description/></item></channel></rss>
