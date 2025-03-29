@@ -1,5 +1,4 @@
 #+title: Mail with notmuch
-#+title: Mail in the command-line
 #+date: 2020-10-01
 
 Today, we will see how to read and mails locally for fast search. Using
