@@ -1,100 +1,35 @@
-#+title: Life in Emacs
-#+date: 2021-06-01
+#+title: Life in Emacs (revisited)
+#+date: 2025-03-28
 
 Here is a small summary from my journey from vim to using Emacs for
 (almost) everything. After using ViM for a few years, I wanted to try
-Emacs. I can summarize months of trial and errors into this single
-sentence :
+Emacs. There are 3 different approaches to get into emacs.
 
-#+begin_quote
-ViM users, use doom-emacs and profit
+1. Create your config from scratch. This is the hard way !
+2. Use a starter kit. There are numerous: [[https://github.com/purcell/emacs.d][purcell's]] or more minimalist like [[https://github.com/SystemCrafters/crafted-emacs][SystemCrafters]], [[https://sr.ht/~ashton314/emacs-bedrock/][emacs-bedrock]]
+3. Use a distribution : [[https://www.spacemacs.org/][Spacemacs]] [[https://github.com/doomemacs/doomemacs][Doom emacs]] are the most popular for evil users
 
-#+end_quote
+My advice is to *start with Doom-Emacs* as all the work is done for you ! It also shows what Emacs can do and it's not limited to editing text. I am now building my own configuration based on [[https://github.com/jamescherti/minimal-emacs.d][minimal-emacs]] but learned a lot after using Doom-Emacs for more than 2 years.
 
-Now that I got that of the way, here are the following paths I've tried.
-I've summarize as much as possible to avoid a long read :
+This post is a complete rewrite of an older one. Instead of listing nice packages, I would like to give a taste on how Emacs can change the way you work.
 
-1. /Using pure emacs/: I've started a clean =.emacs.el= and discovered
-   emacs mappings and some plugins.
-2. /Discovering evil/ felt so good to be back to vim mapping after emacs
-3. [[https://github.com/purcell/emacs.d][Using Purcell starter kit]] is
-   quite nice but...
-4. *Switching to doom emacs* This made my day/month/year. Start here !!
+* Happy camping in emacs
 
-** Best plugins
-:PROPERTIES:
-:CUSTOM_ID: best-plugins
-:END:
-I've put here plugins I deem essential for everyday use. I will not try
-to convince you but install, play with it and you should be pleased :)
-Also, the plugins in
-[[https://github.com/hlissner/doom-emacs][doom-emacs]] are marked as
-/(doom)/.
+Emacs really shines as a consistent framework. In other words, the more you use Emacs for various tasks, the more it makes sense. On the other hand, if you start to use other software, it may lose much of its interest. Having said that, I did use only Emacs for org-mode during my PhD...
 
-Start here :
+I use it to manage tasks with [[https://orgmode.org/][org-mode]], write code [[https://www.gnu.org/software/emacs/manual/html_mono/eglot.html][using lsp]], move files around with [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html][dired]], use it like a "second brain" with [[https://www.orgroam.com/][org-roam]], annotate papers with [[https://github.com/emacs-citar/citar][citar]] and read mail with [[https://notmuchmail.org/notmuch-emacs/][not-much]]. With this setup, most of my time is spent inside emacs but drop to the shell from time to time, mostly to use jj. For git users, [[https://magit.vc/][magit]] is a superb wrapper aroud git.
 
-- [[https://github.com/emacs-evil/evil][evil]] (doom) : ViM emulation in
-  Emacs. No life without it. See also
-  [[https://github.com/emacs-evil/evil-collection][evil-collection]]
-  (doom) for having vim mapping "everywhere"
-- [[https://orgmode.org/worg/org-tutorials/org4beginners.html][Org-mode]]
-  (doom) : I use it to plan my shopping, tasks, studying, movies list+++
-  Numerous tutorials are availables online but here the official
-  documentation (quick version)
+If you are okay living in text-only buffers and commit to this approach, digging into Emacs may blow your mind. For example, you can get the results of a =grep= command into a buffer and editing the buffer [[https://github.com/mhayashi1120/Emacs-wgrep][will replace the file contents at once]] ! Listing directory content can also be edited in a buffer, allow to [[https://www.masteringemacs.org/article/wdired-editable-dired-buffers][mass rename files]]. This can of course be done in other file managers, like [[https://github.com/sxyazi/yazi][yazi]], a powerful newcomer in this field. But emacs makes it integrated to the rest of your worklow.
 
-Build on it :
+What recently blew my mind was a package called [[https://github.com/oantolin/embark][embark]]. What it does looks boring or not really clear from the project description. But, combind with a completion UI like [[https://github.com/minad/vertico][vertico]], you can apply "combos" on your actions. Let me give you a single example. My notes are managed with org-roam and tagged according to their content. To created a note listing all files with the tag /genetics/, I can extract all matching results from the minibuffer into my new file and get their links ! If that seems a bit abstract, I highly recommand taking the time to read [[https://karthinks.com/software/fifteen-ways-to-use-embark/][Karthinks post]] about it. It has a lot of examples easy to follow.
 
-- [[https://github.com/emacs-evil/evil-surround][evil surround]] : port
-  of Tim Pope's surround. Edit parenthesis, quotes, tags... Super useful
-  when you need it.
-- [[https://github.com/abo-abo/avy][avy]] and
-  [[https://github.com/PythonNut/evil-easymotion][easymotion]] (doom)
-  allow you to jump easy everywhere (yes everwhere) on your screen.
-  Replace /f/ and /// in most cases. My favorite command is to jump
-  multiple lines at once. Doom-emacs combine the two for a middle ground
-- [[https://github.com/abo-abo/swiper][ivy]] (doom) is your everyday
-  completion helper to change buffer, run commands+++
-- [[https://magit.vc/][magit]] (doom) is a git helper. It was difficult
-  for me to adopt it for other than just commit and push but your hard
-  work will be rewarded
-- [[https://company-mode.github.io/][company]] (doom) do your completion
-  in emacs. Can also complete filenames (C-x C-f in doom emacs)
-- [[https://github.com/jkitchin/org-ref][org-ref]] manage your bitex
-  library with org-mode. Useful but not super intuitive. You can import
-  books by ISBN ( which
-  [[https://github.com/cpitclaudel/biblio.el][biblio.el]] does not do
-  well)
+Finally, I will not advertise org-mode. [[https://www.reddit.com/r/orgmode/comments/17zzwsy/comment/ka41i47/][Others have done it before much better than I could]].
 
-Under test
+* Taking a scroll outside emacs 
 
-- [[https://github.com/Fuco1/smartparens][smartparens]] looks very
-  powerful to manage nested brackets, parenthesis...
+Can you go too far using Emacs ? Some use it as [[https://github.com/emacs-exwm/exwm][their window manager]]. For me, you have to be okay with the "text-only" approach. For example, if you take notes, formatting will not look as nice as using a GUI. On Windows, I struggled to make Doom emacs work. People recommend to use WSL to run Emacs but it's not the more practical way. I chose to drop emacs, use Emacs 30 with native-compilation and a minimal starter kit. Performance is okay, unless for actions involving I/O, like mass-renaming files.
 
-** Living in emacs
-:PROPERTIES:
-:CUSTOM_ID: living-in-emacs
-:END:
-Here are a list of packages where tutorials can be found on the internet
-(or in later posts)
+I still use the terminal, with =jj= and =nushell=. Emacs has its own shell shell called [[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][eshell]] but got bitten by bad performances in the past. It may need to be revisited though.
 
-- Mail : =notmuch= is awesome (see [[file:posts/mail.org][this post]])
-- Navigation: =dired= (I've tried ranger but the default dired works
-  better for me)
-- Facebook messenger : =irc= + =bitlbee=
-
-** What I still do outside emacs
-:PROPERTIES:
-:CUSTOM_ID: what-i-still-do-outside-emacs
-:END:
-- PDF: =pdf-tools= is nice but I prefer =zathura=, which is faster and
-  more configurable
-- Music (+ video) : using =mpd= and =ncmpcpp=
-- Shell : =eshell= is nice but I prefer a "real" shell (using =nushell=
-  at the moment). easier to deal with.
-
-** Community list
-:PROPERTIES:
-:CUSTOM_ID: community-list
-:END:
-Finally, [[https://github.com/emacs-tw/awesome-emacs][awesome-emacs]] is
-a curated list of plugins by the community
+Finally, for inspiration, [[https://github.com/emacs-tw/awesome-emacs][awesome-emacs]] is
+a curated list of plugins by the community.
